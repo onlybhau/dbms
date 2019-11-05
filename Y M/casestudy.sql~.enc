@@ -1,0 +1,21 @@
+delimiter $$
+create procedure tarin()
+begin
+declare x date;
+declare sum,y double;
+select dor into x from tinfo;
+if(x=="2018-08-22 ") then
+select amt from tinfo into y;
+
+sum=sum+y;                                                          
+end if;
+end $$
+delimiter ;
+
+
+
+
+
+
+
+     

@@ -1,0 +1,382 @@
+mysql> create table student_marks(rno int(3) primary key,name varchar(30),total_marks int(4));
+Query OK, 0 rows affected (0.36 sec)
+
+mysql> create table student_result(rno int(3),class varchar(30),foreign key(rno) references student_marks(rno));
+Query OK, 0 rows affected (0.42 sec)
+
+mysql> desc student_marks;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| rno         | int(3)      | NO   | PRI | NULL    |       |
+| name        | varchar(30) | YES  |     | NULL    |       |
+| total_marks | int(4)      | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc student_result;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rno   | int(3)      | YES  | MUL | NULL    |       |
+| class | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into student_marks values(1,"Anand",1400);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into student_marks values(2,"Aniket",1450);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into student_marks values(3,"Aniket M",1450);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into student_marks values(4,"Adesh",950);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into student_marks values(4,"Rohit",850);
+ERROR 1062 (23000): Duplicate entry '4' for key 'PRIMARY'
+mysql> insert into student_marks values(5,"Rohit",850);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into student_marks values(6,"Abhi",700);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into student_result(rno) values(1);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into student_result(rno) values(2);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into student_result(rno) values(3);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into student_result(rno) values(6);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into student_result(rno) values(4);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into student_result(rno) values(5);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from student_marks;
++-----+----------+-------------+
+| rno | name     | total_marks |
++-----+----------+-------------+
+|   1 | Anand    |        1400 |
+|   2 | Aniket   |        1450 |
+|   3 | Aniket M |        1450 |
+|   4 | Adesh    |         950 |
+|   5 | Rohit    |         850 |
+|   6 | Abhi     |         700 |
++-----+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student_result;
++------+-------+
+| rno  | class |
++------+-------+
+|    1 | NULL  |
+|    2 | NULL  |
+|    3 | NULL  |
+|    6 | NULL  |
+|    4 | NULL  |
+|    5 | NULL  |
++------+-------+
+6 rows in set (0.00 sec)
+
+mysql> source a5.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call class_updation(6);
+ERROR 1054 (42S22): Unknown column 'total' in 'field list'
+mysql> drop procedure class_updation();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+mysql> drop procedure class_updation;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a5.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call class_updation(6);
+ERROR 1172 (42000): Result consisted of more than one row
+mysql> drop procedure class_updation;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a5.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call class_updation(6);
++------+
+| mark |
++------+
+|  700 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.26 sec)
+
+mysql> select * from student_result;
++------+-------+
+| rno  | class |
++------+-------+
+|    1 | NULL  |
+|    2 | NULL  |
+|    3 | NULL  |
+|    6 | Fail  |
+|    4 | NULL  |
+|    5 | NULL  |
++------+-------+
+6 rows in set (0.00 sec)
+
+mysql> call class_updation(1);
++------+
+| mark |
++------+
+| 1400 |
++------+
+1 row in set (0.01 sec)
+
+Query OK, 1 row affected (0.16 sec)
+
+mysql> call class_updation(2);
++------+
+| mark |
++------+
+| 1450 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.16 sec)
+
+mysql> call class_updation(3);
++------+
+| mark |
++------+
+| 1450 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.18 sec)
+
+mysql> call class_updation(4);
++------+
+| mark |
++------+
+|  950 |
++------+
+1 row in set (0.01 sec)
+
+Query OK, 1 row affected (0.22 sec)
+
+mysql> call class_updation(5);
++------+
+| mark |
++------+
+|  850 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.20 sec)
+
+mysql> call class_updation(6);
++------+
+| mark |
++------+
+|  700 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.30 sec)
+
+mysql> select * from student_result;
++------+-------------+
+| rno  | class       |
++------+-------------+
+|    1 | SecondClass |
+|    2 | SecondClass |
+|    3 | SecondClass |
+|    6 | Fail        |
+|    4 | SecondClass |
+|    5 | SecondClass |
++------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> drop procedure class_updation;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a5.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call class_updation(5);
++------+
+| mark |
++------+
+|  850 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from student_result;
++------+-------------+
+| rno  | class       |
++------+-------------+
+|    1 | SecondClass |
+|    2 | SecondClass |
+|    3 | SecondClass |
+|    6 | Fail        |
+|    4 | SecondClass |
+|    5 | Distinction |
++------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> call class_updation(1);
++------+
+| mark |
++------+
+| 1400 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from student_result;
++------+-------------+
+| rno  | class       |
++------+-------------+
+|    1 | Distinction |
+|    2 | SecondClass |
+|    3 | SecondClass |
+|    6 | Fail        |
+|    4 | SecondClass |
+|    5 | Distinction |
++------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> call class_updation(3);
++------+
+| mark |
++------+
+| 1450 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from student_result;
++------+-------------+
+| rno  | class       |
++------+-------------+
+|    1 | Distinction |
+|    2 | SecondClass |
+|    3 | Distinction |
+|    6 | Fail        |
+|    4 | SecondClass |
+|    5 | Distinction |
++------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> drop procedure class_updation;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a5.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call class_updation(3);
++------+
+| mark |
++------+
+| 1450 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> select * from student_result;
++------+-------------+
+| rno  | class       |
++------+-------------+
+|    1 | Distinction |
+|    2 | SecondClass |
+|    3 | Distinction |
+|    6 | Fail        |
+|    4 | SecondClass |
+|    5 | Distinction |
++------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> call class_updation(5);
++------+
+| mark |
++------+
+|  850 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from student_result;
++------+-------------+
+| rno  | class       |
++------+-------------+
+|    1 | Distinction |
+|    2 | SecondClass |
+|    3 | Distinction |
+|    6 | Fail        |
+|    4 | SecondClass |
+|    5 | SecondClass |
++------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> call class_updation(4);
++------+
+| mark |
++------+
+|  950 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from student_result;
++------+-------------+
+| rno  | class       |
++------+-------------+
+|    1 | Distinction |
+|    2 | SecondClass |
+|    3 | Distinction |
+|    6 | Fail        |
+|    4 | FirstClass  |
+|    5 | SecondClass |
++------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> call class_updation(2);
++------+
+| mark |
++------+
+| 1450 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from student_result;
++------+-------------+
+| rno  | class       |
++------+-------------+
+|    1 | Distinction |
+|    2 | Distinction |
+|    3 | Distinction |
+|    6 | Fail        |
+|    4 | FirstClass  |
+|    5 | SecondClass |
++------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+

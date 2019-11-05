@@ -1,0 +1,23 @@
+delimiter $$
+create procedure books(in r int)
+begin
+declare a,b,x1,f int;
+declare x , y date;
+select doi from stud where rno=r into x;
+select dor from account where rno=r into y;
+set a=datediff(y,x);
+if(a > 15 and a < 30) then
+set a=a*5;
+update account set amount=a where rno=r;
+elseif(a >= 30) then
+set f=30*5;
+set x1=a-30;
+set f=f+(x1*50);
+update account set amount=f where rno=r;
+elseif(a <= 15) then 
+update account set amount=0 where rno=r;
+
+end if;
+end $$
+delimiter ;
+

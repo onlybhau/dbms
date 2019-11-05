@@ -1,0 +1,401 @@
+
+Design at least 10 sql query for suitable Application using SQL DML statements :
+all type of join,Sub-Qurey and View
+
+
+
+
+
+mysql> create database boat_reservation;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use boat_reservation;
+Database changed
+mysql> create table boats(bid int(3) not null AUTO_INCREMENT primary key,bname varchar(30),bcolor varchar(30));
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> create table sailors(sid int(3) not null AUTO_INCREMENT primary key,sname varchar(30),srating int(3),sage int(4));
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> create table reservers(sid int(3),bid int(3),DOR date,foreign key(sid) references sailors(sid),fore
+ign key(bid) references boats(bid));
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> desc boats;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| bid    | int(3)      | NO   | PRI | NULL    | auto_increment |
+| bname  | varchar(30) | YES  |     | NULL    |                |
+| bcolor | varchar(30) | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> desc sailors;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| sid     | int(3)      | NO   | PRI | NULL    | auto_increment |
+| sname   | varchar(30) | YES  |     | NULL    |                |
+| srating | int(3)      | YES  |     | NULL    |                |
+| sage    | int(4)      | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc reservers;
++-------+--------+------+-----+---------+-------+
+| Field | Type   | Null | Key | Default | Extra |
++-------+--------+------+-----+---------+-------+
+| sid   | int(3) | YES  | MUL | NULL    |       |
+| bid   | int(3) | YES  | MUL | NULL    |       |
+| DOR   | date   | YES  |     | NULL    |       |
++-------+--------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into boats(bname,bcolor) values("Honda","red");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into boats(bname,bcolor) values("Hero","green");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into boats(bname,bcolor) values("Maruti","blue");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into sailors(sname,srating,sage) values("A",40,20);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into sailors(sname,srating,sage) values("B",30,30);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into sailors(sname,srating,sage) values("C",60,40);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into sailors(sname,srating,sage) values("D",70,50);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert reserver into values(1,1,'2019-2-19');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'into values(1,1,'2019-2-19')' at line 1
+mysql> insert  into reservers values(1,1,'2019-2-19');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert  into reservers values(1,2,'2019-3-20');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert  into reservers values(2,1,'2019-4-19');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert  into reservers values(2,3,'2019-2-19');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert  into reservers values(3,2,'2019-3-18');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert  into reservers values(3,3,'2019-6-19');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert  into reservers values(4,3,'2019-7-19');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert  into reservers values(4,2,'2019-8-19');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from boats;
++-----+--------+--------+
+| bid | bname  | bcolor |
++-----+--------+--------+
+|   1 | Honda  | red    |
+|   2 | Hero   | green  |
+|   3 | Maruti | blue   |
++-----+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from sailors;;
++-----+-------+---------+------+
+| sid | sname | srating | sage |
++-----+-------+---------+------+
+|   1 | A     |      40 |   20 |
+|   2 | B     |      30 |   30 |
+|   3 | C     |      60 |   40 |
+|   4 | D     |      70 |   50 |
++-----+-------+---------+------+
+4 rows in set (0.00 sec)
+
+ERROR: 
+No query specified
+
+mysql> select * from sailors;
++-----+-------+---------+------+
+| sid | sname | srating | sage |
++-----+-------+---------+------+
+|   1 | A     |      40 |   20 |
+|   2 | B     |      30 |   30 |
+|   3 | C     |      60 |   40 |
+|   4 | D     |      70 |   50 |
++-----+-------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from reserves;
+ERROR 1146 (42S02): Table 'boat_reservation.reserves' doesn't exist
+mysql> select * from reservers;
++------+------+------------+
+| sid  | bid  | DOR        |
++------+------+------------+
+|    1 |    1 | 2019-02-19 |
+|    1 |    2 | 2019-03-20 |
+|    2 |    1 | 2019-04-19 |
+|    2 |    3 | 2019-02-19 |
+|    3 |    2 | 2019-03-18 |
+|    3 |    3 | 2019-06-19 |
+|    4 |    3 | 2019-07-19 |
+|    4 |    2 | 2019-08-19 |
++------+------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select s.sname form sailors s,boats b,reservers r where(b.bid=1 AND b.bid=r.bid AND s.sid=r.sid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sailors s,boats b,reservers r where(b.bid=1 AND b.bid=r.bid AND s.sid=r.sid)' at line 1
+mysql> select s.sname form sailors s,boats b,reservers r where ((b.bid=1)AND (b.bid=r.bid)AND (s.sid=r.sid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sailors s,boats b,reservers r where ((b.bid=1)AND (b.bid=r.bid)AND (s.sid=r.sid)' at line 1
+mysql> select s.sname from sailors s,boats b,reservers r where ((b.bid=1)AND (b.bid=r.bid)AND (s.sid=r.sid));
++-------+
+| sname |
++-------+
+| A     |
+| B     |
++-------+
+2 rows in set (0.02 sec)
+
+mysql> select s.sname,b.bid from sailors s,boats b,reservers r where ((r.bid=1)AND (b.bid=r.bid)AND (s.sid=r.sid));
++-------+-----+
+| sname | bid |
++-------+-----+
+| A     |   1 |
+| B     |   1 |
++-------+-----+
+2 rows in set (0.00 sec)
+
+mysql> insert  into reservers values(4,1,'2019-8-19');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select s.sname,b.bid from sailors s,boats b,reservers r where ((r.bid=1)AND (b.bid=r.bid)AND (s.sid=r.sid));
++-------+-----+
+| sname | bid |
++-------+-----+
+| A     |   1 |
+| B     |   1 |
+| D     |   1 |
++-------+-----+
+3 rows in set (0.00 sec)
+
+mysql> select s.sname,b.bid,b.color from sailors s,boats b,reservers r where ((b.bid=r.bid)AND (s.sid=r.sid) AND (s.sname="A"));
+ERROR 1054 (42S22): Unknown column 'b.color' in 'field list'
+mysql> select s.sname,b.bid,b.bcolor from sailors s,boats b,reservers r where ((b.bid=r.bid)AND (s.sid=r.sid) AND (s.sname="A"));
++-------+-----+--------+
+| sname | bid | bcolor |
++-------+-----+--------+
+| A     |   1 | red    |
+| A     |   2 | green  |
++-------+-----+--------+
+2 rows in set (0.00 sec)
+
+mysql> select max(s.sage) form sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid) AND);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid) AND)' at line 1
+mysql> select max(s.sage) form sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid) AND (s.sid=r.sid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid) AND (s.s' at line 1
+mysql> select max(sage) from sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid) AND (s.sid=r.sid));
++-----------+
+| max(sage) |
++-----------+
+|        50 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select max(sage),sname from sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid)
+ AND (s.sid=r.sid));
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'boat_reservation.s.sname'; this is incompatible with sql_mode=only_full_group_by
+mysql> select max(sage),s.sname from sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid) AND (s.sid=r.sid));
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'boat_reservation.s.sname'; this is incompatible with sql_mode=only_full_group_by
+mysql> select max(sage) from sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid) AND (s.sid=r.sid));
++-----------+
+| max(sage) |
++-----------+
+|        50 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select max(srating) from sailors s,boats b,reservers r where ((b.bcolor="green") AND (b.bid=r.bid)
+AND (s.sid=r.sid));
++--------------+
+| max(srating) |
++--------------+
+|           70 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select bname  from sailors s,boats b,reservers r group by srating having  ((b.bcolor="green") AND (b.bid=r.bid) AND (s.sid=r.sid));
+ERROR 1054 (42S22): Unknown column 'b.bcolor' in 'having clause'
+mysql> select bname from sailors s,boats b,reservers r where ((s.srating=60)AND(s.sid=r.sid)AND(b.bid=r.bid));
++--------+
+| bname  |
++--------+
+| Hero   |
+| Maruti |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select sname,min(sage) from sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid)
+ AND (s.sid=r.sid));
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'boat_reservation.s.sname'; this is incompatible with sql_mode=only_full_group_by
+mysql> select s.sname,min(s.sage) from sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid) AND (s.sid=r.sid));
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'boat_reservation.s.sname'; this is incompatible with sql_mode=only_full_group_by
+mysql> select min(s.sage) from sailors s,boats b,reservers r where ((b.bcolor="red") AND (b.bid=r.bid) AND (s.sid=r.sid));
++-------------+
+| min(s.sage) |
++-------------+
+|          20 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sname from sailors where sage in (select min(s.sage) from sailors s,boats b,reservers r wher
+e ((b
++-------+
+| sname |
++-------+
+| A     |
++-------+
+1 row in set (0.07 sec)
+
+mysql> select sname from sailors where sage in (select min(s.sage) from sailors s,boats b,reservers r where ((b.bid=1 OR b.bid=3) AND (b.bid=r.bid) AND (s.sid=r.sid)));
++-------+
+| sname |
++-------+
+| A     |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select sname from sailors where sage in (select min(s.sage) from sailors s,boats b,reservers r where ((b.bid=1 OR b.bid=3) AND (b.bid=r.bid) AND (s.sid=r.sid)));
+
+
+Database changed
+mysql> create table Dept(did int(3) primary key,dname varchar(30),hod varchar(30));
+Query OK, 0 rows affected (0.33 sec)
+
+mysql> create table emp(eid int(3) primary key,ename varchar(30),salary int(5),did int(3),foreign key(did) references Dept(did));
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(3)      | NO   | PRI | NULL    |       |
+| ename  | varchar(30) | YES  |     | NULL    |       |
+| salary | int(5)      | YES  |     | NULL    |       |
+| did    | int(3)      | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc Dept;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| did   | int(3)      | NO   | PRI | NULL    |       |
+| dname | varchar(30) | YES  |     | NULL    |       |
+| hod   | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> sourec assi4.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sourec assi4.sql' at line 1
+mysql> source assi4.sql;
+Query OK, 3 rows affected (0.06 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+Query OK, 3 rows affected (0.16 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from Dept;
++-----+-------+------+
+| did | dname | hod  |
++-----+-------+------+
+|   1 | Comp  | A    |
+|   2 | Mech  | B    |
+|   3 | Civil | C    |
++-----+-------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+------+
+| eid | ename | salary | did  |
++-----+-------+--------+------+
+|   1 | A     |  10000 |    1 |
+|   2 | B     |  20000 |    2 |
+|   3 | C     |  30000 |    3 |
++-----+-------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Dept d,emp e where d.did=e.did;
++-----+-------+------+-----+-------+--------+------+
+| did | dname | hod  | eid | ename | salary | did  |
++-----+-------+------+-----+-------+--------+------+
+|   1 | Comp  | A    |   1 | A     |  10000 |    1 |
+|   2 | Mech  | B    |   2 | B     |  20000 |    2 |
+|   3 | Civil | C    |   3 | C     |  30000 |    3 |
++-----+-------+------+-----+-------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp values(4,"A",1000,1),(5,"B",2000,2);
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from Dept d,emp e where d.did=e.did;
++-----+-------+------+-----+-------+--------+------+
+| did | dname | hod  | eid | ename | salary | did  |
++-----+-------+------+-----+-------+--------+------+
+|   1 | Comp  | A    |   1 | A     |  10000 |    1 |
+|   1 | Comp  | A    |   4 | A     |   1000 |    1 |
+|   2 | Mech  | B    |   2 | B     |  20000 |    2 |
+|   2 | Mech  | B    |   5 | B     |   2000 |    2 |
+|   3 | Civil | C    |   3 | C     |  30000 |    3 |
++-----+-------+------+-----+-------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> create table product(id int(3),name varchar(30));
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> create table location(id int(3),location varchar(30));
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> insert into product values(1,"Anand1"),(2,"Anand2"),(3,"Anand3"),(4,"Anand4"),(5,"Anand5");
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into location values(1,"A1"),(2,"A2"),(6,"A6"),(7,"A7"),(5,"A5");
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from product left over join location on product.id=location.id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'over join location on product.id=location.id' at line 1
+mysql> select * from product left outer join location on product.id=location.id;
++------+--------+------+----------+
+| id   | name   | id   | location |
++------+--------+------+----------+
+|    1 | Anand1 |    1 | A1       |
+|    2 | Anand2 |    2 | A2       |
+|    5 | Anand5 |    5 | A5       |
+|    3 | Anand3 | NULL | NULL     |
+|    4 | Anand4 | NULL | NULL     |
++------+--------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from location right outer join product on product.id=location.id;
++------+----------+------+--------+
+| id   | location | id   | name   |
++------+----------+------+--------+
+|    1 | A1       |    1 | Anand1 |
+|    2 | A2       |    2 | Anand2 |
+|    5 | A5       |    5 | Anand5 |
+| NULL | NULL     |    3 | Anand3 |
+| NULL | NULL     |    4 | Anand4 |
++------+----------+------+--------+
+5 rows in set (0.00 sec)
+
+

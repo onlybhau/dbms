@@ -1,0 +1,100 @@
+package jdbc1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class jdbcdb {
+	
+	
+	public static void main(String args[]) throws ClassNotFoundException
+	 {
+		 try{
+			 int cont;
+			 Class.forName("com.mysql.jdbc.Driver");
+			 System.out.println("Drivers Loaded");
+			 // Estabilished Connection 
+			 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lib","root","");
+			 System.out.println("Connection OK");
+			 // Create stmt obj;
+			 Statement st = con.createStatement();
+			 Scanner sc = new Scanner(System.in);
+			 System.out.println("Enter Book name ");
+			 String n =sc.nextLine();
+			 System.out.println("Enter Book id");
+			 int i = sc.nextInt();
+			 System.out.println("Enter Book Price");
+			 float p=sc.nextInt();
+			 
+			 do{
+				 System.out.println("1.insert 2.display 3.delete");
+				 System.out.println("Enter your choice:");
+					int n1=sc.nextInt();
+				switch(n1)
+				{
+				case 1:
+					String q = "Insert Into lib1 Values ("+i+",'"+n+"','"+p+"')";
+					 st.executeUpdate(q);
+					 System.out.print("Execute OK ");
+					 System.out.print("\n");
+
+					 break;
+				case 2:
+					
+					 ResultSet rs= st.executeQuery("select * from lib1");
+					 while(rs.next())
+					 {
+					 System.out.print(rs.getInt(1));
+					 System.out.print("\t");
+					 System.out.print(rs.getString(2));
+					 System.out.print("\t");
+					 System.out.println(rs.getInt(3));
+					 
+					 
+					 
+					 }
+					 break;
+					 
+				case 3:
+					 System.out.println("Enter Book id to delete");
+					 int d = sc.nextInt();
+					 String q1 = "delete from lib1 where bid="+d+"";
+					 st.executeUpdate(q1);
+					 ResultSet rs1= st.executeQuery("select * from lib1");
+					 while(rs1.next())
+					 {
+					 System.out.print(rs1.getInt(1));
+					 System.out.print("\t");
+					 System.out.print(rs1.getString(2));
+					 System.out.print("\t");
+					 System.out.println(rs1.getInt(3));
+					 
+					 
+					 }
+					 break;
+					
+				
+				}
+			 
+			 
+			
+
+
+			 System.out.println("Do you want to continue..?Press 1:");
+			 cont=sc.nextInt();
+			}while(cont==1);
+
+		 }
+		 catch(SQLException e)
+		 {
+			 System.out.println(e);
+		 }
+	 
+	 
+
+}
+}
+

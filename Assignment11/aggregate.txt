@@ -1,0 +1,12 @@
+db.zipcode.insert({city : "Pune", state : "Maharashtra", population : 346522})
+db.zipcode.insert({city : "mumbai", state : "Maharashtra", population : 343562})
+db.zipcode.insert({city : "bangalore", state : "karnataka", population : 54352})
+db.zipcode.insert({city : "ahmedabad", state : "gujrat", population : 53738})
+db.zipcode.insert({city : "kolkata", state : "West Bengal", population : 235764})
+db.zipcode.insert({city : "ahmednagar", state : "Maharashtra", population : 76733})
+db.zipcode.insert({city : "hyderabad", state : "AndraPradesh", population : 64232})
+db.zipcode.insert({city : "mysore", state : "karnataka", population : 13234})
+db.zipcode.insert({city : "kharagpur", state : "West Bengal", population : 65624})
+
+db.zipcode.aggregate({$group : { _id : "$state", total_population : {$sum : "$population"}}})
+db.zipcode.aggregate({$group : { _id : "$state", total_population : {$sum : "$population"}}},{$match : {total_population : {$gte : 70000}}})

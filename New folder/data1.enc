@@ -1,0 +1,257 @@
+-- MySQL dump 10.14  Distrib 5.5.33a-MariaDB, for Linux (x86_64)
+--
+-- Host: localhost    Database: HiddenLeaf
+-- ------------------------------------------------------
+-- Server version	5.5.33a-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `boats`
+--
+
+DROP TABLE IF EXISTS `boats`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `boats` (
+  `bid` int(11) NOT NULL,
+  `bname` char(20) DEFAULT NULL,
+  `bcolor` char(15) DEFAULT NULL,
+  PRIMARY KEY (`bid`),
+  KEY `indexboats` (`bid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `boats`
+--
+
+LOCK TABLES `boats` WRITE;
+/*!40000 ALTER TABLE `boats` DISABLE KEYS */;
+INSERT INTO `boats` VALUES (101,'titanic','red'),(102,'VIKRANT','black'),(103,'vikramaditya','blue'),(104,'ghazi','orange'),(105,'Honda','green'),(106,'suzuki','ivory');
+/*!40000 ALTER TABLE `boats` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `book_issue`
+--
+
+DROP TABLE IF EXISTS `book_issue`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `book_issue` (
+  `roll` int(3) NOT NULL,
+  `name` varchar(10) NOT NULL,
+  `doi` date NOT NULL,
+  `bname` varchar(10) NOT NULL,
+  `status` char(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `book_issue`
+--
+
+LOCK TABLES `book_issue` WRITE;
+/*!40000 ALTER TABLE `book_issue` DISABLE KEYS */;
+INSERT INTO `book_issue` VALUES (1,'mark','2019-07-15','z2o','r'),(3,'tony','2019-07-01','pyc','r'),(7,'jarvis','2019-06-12','hitref','r');
+/*!40000 ALTER TABLE `book_issue` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `book_return`
+--
+
+DROP TABLE IF EXISTS `book_return`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `book_return` (
+  `roll` int(3) DEFAULT NULL,
+  `dor` date DEFAULT NULL,
+  `amount` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `book_return`
+--
+
+LOCK TABLES `book_return` WRITE;
+/*!40000 ALTER TABLE `book_return` DISABLE KEYS */;
+INSERT INTO `book_return` VALUES (1,'2019-07-31',80),(3,'2019-07-31',150),(7,'2019-07-31',1100),(7,'2019-07-31',NULL);
+/*!40000 ALTER TABLE `book_return` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `location`
+--
+
+DROP TABLE IF EXISTS `location`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `location` (
+  `id` int(11) NOT NULL,
+  `name` varchar(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `location`
+--
+
+LOCK TABLES `location` WRITE;
+/*!40000 ALTER TABLE `location` DISABLE KEYS */;
+INSERT INTO `location` VALUES (1,'mum'),(5,'kol'),(6,'pun'),(7,'del'),(11,'ban');
+/*!40000 ALTER TABLE `location` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product`
+--
+
+DROP TABLE IF EXISTS `product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL,
+  `name` varchar(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product`
+--
+
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (1,'a'),(2,'b'),(3,'c'),(4,'d'),(5,'e');
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reserves`
+--
+
+DROP TABLE IF EXISTS `reserves`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reserves` (
+  `bid` int(11) DEFAULT NULL,
+  `sid` int(11) DEFAULT NULL,
+  `dor` date DEFAULT NULL,
+  KEY `sid` (`sid`),
+  KEY `bid` (`bid`),
+  CONSTRAINT `reserves_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `sailors` (`sid`),
+  CONSTRAINT `reserves_ibfk_2` FOREIGN KEY (`bid`) REFERENCES `boats` (`bid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reserves`
+--
+
+LOCK TABLES `reserves` WRITE;
+/*!40000 ALTER TABLE `reserves` DISABLE KEYS */;
+INSERT INTO `reserves` VALUES (101,201,'1997-06-04'),(102,201,'1997-06-05'),(102,202,'1998-07-05'),(104,202,'1998-07-06'),(104,203,'1998-07-12'),(103,203,'1998-08-12'),(102,203,'1998-08-13'),(101,203,'1999-11-13'),(101,204,'2000-11-24'),(102,204,'2000-11-30'),(104,205,'2001-04-30'),(103,206,'2001-09-16'),(101,206,'2001-11-08');
+/*!40000 ALTER TABLE `reserves` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sailors`
+--
+
+DROP TABLE IF EXISTS `sailors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sailors` (
+  `sid` int(11) NOT NULL,
+  `sname` char(20) DEFAULT NULL,
+  `srating` float DEFAULT NULL,
+  `sage` int(10) DEFAULT NULL,
+  PRIMARY KEY (`sid`),
+  KEY `ind` (`sid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sailors`
+--
+
+LOCK TABLES `sailors` WRITE;
+/*!40000 ALTER TABLE `sailors` DISABLE KEYS */;
+INSERT INTO `sailors` VALUES (201,'rahul',9.2,41),(202,'akash',8.3,25),(203,'shiv',9.5,21),(204,'saurabh',7.9,24),(205,'dipak',8.3,22),(206,'mahesh',8.1,25);
+/*!40000 ALTER TABLE `sailors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student` (
+  `roll` int(3) NOT NULL,
+  `name` char(10) NOT NULL,
+  `marks` int(4) NOT NULL,
+  `rowno` int(3) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`roll`),
+  UNIQUE KEY `rowno` (`rowno`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student`
+--
+
+LOCK TABLES `student` WRITE;
+/*!40000 ALTER TABLE `student` DISABLE KEYS */;
+INSERT INTO `student` VALUES (4,'jai',970,1),(5,'aniket',1400,2),(8,'emily',990,3),(9,'om',900,4),(10,'mike',899,5),(11,'simon',820,6),(12,'casey',750,7),(25,'raj',830,8);
+/*!40000 ALTER TABLE `student` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `student_result`
+--
+
+DROP TABLE IF EXISTS `student_result`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student_result` (
+  `roll` int(3) DEFAULT NULL,
+  `class` varchar(4) NOT NULL,
+  KEY `roll` (`roll`),
+  CONSTRAINT `student_result_ibfk_1` FOREIGN KEY (`roll`) REFERENCES `student` (`roll`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student_result`
+--
+
+LOCK TABLES `student_result` WRITE;
+/*!40000 ALTER TABLE `student_result` DISABLE KEYS */;
+/*!40000 ALTER TABLE `student_result` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-07-31 16:31:14

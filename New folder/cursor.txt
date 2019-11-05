@@ -1,0 +1,45 @@
+drop procedure pass;
+select * from student;
+select * from Passed;
+truncate table Passed;
+insert into Passed values(4,'jai'),(8,'emily');
+
+delimiter $$
+create procedure pass()
+begin
+declare lim1 int;
+declare lim2 int;
+declare count1 int default 0;
+declare count2 int default 0;
+declare flag int default 0;
+declare sroll int(3);
+declare sname char(10);
+declare qroll int(3);
+declare qname char(10);
+declare stud cursor for select roll,name from student;
+declare new_table cursor for select roll,name from Passed;
+select count(*) into lim1 from student;
+select count(*) into lim2 from Passed;
+open stud;
+
+REPEAT fetch stud into sroll,sname;
+	open new_table;
+	REPEAT fetch new_table into qroll,qname;
+	if(qroll = sroll and qname = sname) then
+	set flag = 1;
+	end if;
+	set count2 = count2 + 1;
+	until count2 = lim2
+	end REPEAT;
+	close new_table;
+if(flag = 0) then
+insert into Passed values(sroll,sname);
+end if;
+set flag = 0;
+set count2 = 0;
+set count1 = count1 + 1;
+until count1 = lim1
+end REPEAT;
+close stud;
+end $$
+delimiter ;

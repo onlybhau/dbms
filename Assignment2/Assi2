@@ -1,0 +1,200 @@
+mysql> select * from Student order by grno;
++------+------+------+------------+------------+--------+
+| grno | name | did  | dname      | dob        | rollno |
++------+------+------+------------+------------+--------+
+|  101 | A    |    1 | Computer   | 1999-12-12 |      1 |
+|  102 | B    |    1 | Computer   | 1999-03-12 |      2 |
+|  103 | C    |    1 | Computer   | 1999-04-12 |      3 |
+|  104 | D    |    1 | Computer   | 1999-05-12 |      4 |
+|  105 | E    |    1 | Computer   | 1999-06-12 |      5 |
+|  106 | F    |    1 | Computer   | 1999-07-12 |      6 |
+|  201 | A    |    2 | IT         | 1999-07-12 |      1 |
+|  202 | B    |    2 | IT         | 1999-01-12 |      2 |
+|  203 | C    |    2 | IT         | 1999-10-12 |      3 |
+|  204 | D    |    2 | IT         | 1999-10-12 |      4 |
+|  205 | E    |    2 | IT         | 1999-11-12 |      5 |
+|  206 | E    |    2 | IT         | 1999-08-12 |      6 |
+|  301 | A    |    3 | Mechanical | 1999-08-12 |      1 |
+|  302 | B    |    3 | Mechanical | 1999-02-12 |      2 |
+|  303 | C    |    3 | Mechanical | 1999-02-12 |      3 |
+|  304 | D    |    3 | Mechanical | 1999-02-12 |      4 |
+|  305 | E    |    3 | Mechanical | 1999-02-12 |      5 |
+|  306 | F    |    3 | Mechanical | 1999-02-12 |      6 |
+|  401 | A    |    4 | Civil      | 1999-02-12 |      1 |
+|  402 | B    |    4 | Civil      | 1999-02-12 |      2 |
+|  403 | C    |    4 | Civil      | 1999-02-12 |      3 |
+|  501 | A    |    5 | ENTC       | 1999-02-12 |      1 |
+|  502 | B    |    5 | ENTC       | 1999-02-12 |      2 |
+|  503 | C    |    5 | ENTC       | 1999-02-12 |      3 |
+|  601 | A    |    6 | Electrical | 1999-03-12 |      1 |
+|  602 | B    |    6 | Electrical | 1999-03-12 |      2 |
++------+------+------+------------+------------+--------+
+26 rows in set (0.00 sec)
+
+mysql> select * from Student order by name;
++------+------+------+------------+------------+--------+
+| grno | name | did  | dname      | dob        | rollno |
++------+------+------+------------+------------+--------+
+|  601 | A    |    6 | Electrical | 1999-03-12 |      1 |
+|  501 | A    |    5 | ENTC       | 1999-02-12 |      1 |
+|  201 | A    |    2 | IT         | 1999-07-12 |      1 |
+|  401 | A    |    4 | Civil      | 1999-02-12 |      1 |
+|  101 | A    |    1 | Computer   | 1999-12-12 |      1 |
+|  301 | A    |    3 | Mechanical | 1999-08-12 |      1 |
+|  302 | B    |    3 | Mechanical | 1999-02-12 |      2 |
+|  602 | B    |    6 | Electrical | 1999-03-12 |      2 |
+|  502 | B    |    5 | ENTC       | 1999-02-12 |      2 |
+|  402 | B    |    4 | Civil      | 1999-02-12 |      2 |
+|  202 | B    |    2 | IT         | 1999-01-12 |      2 |
+|  102 | B    |    1 | Computer   | 1999-03-12 |      2 |
+|  203 | C    |    2 | IT         | 1999-10-12 |      3 |
+|  303 | C    |    3 | Mechanical | 1999-02-12 |      3 |
+|  403 | C    |    4 | Civil      | 1999-02-12 |      3 |
+|  503 | C    |    5 | ENTC       | 1999-02-12 |      3 |
+|  103 | C    |    1 | Computer   | 1999-04-12 |      3 |
+|  204 | D    |    2 | IT         | 1999-10-12 |      4 |
+|  304 | D    |    3 | Mechanical | 1999-02-12 |      4 |
+|  104 | D    |    1 | Computer   | 1999-05-12 |      4 |
+|  205 | E    |    2 | IT         | 1999-11-12 |      5 |
+|  206 | E    |    2 | IT         | 1999-08-12 |      6 |
+|  305 | E    |    3 | Mechanical | 1999-02-12 |      5 |
+|  105 | E    |    1 | Computer   | 1999-06-12 |      5 |
+|  306 | F    |    3 | Mechanical | 1999-02-12 |      6 |
+|  106 | F    |    1 | Computer   | 1999-07-12 |      6 |
++------+------+------+------------+------------+--------+
+26 rows in set (0.00 sec)
+
+mysql> create view comp_view as select * from Student where dname="Computer";
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from comp_view;
++------+------+------+----------+------------+--------+
+| grno | name | did  | dname    | dob        | rollno |
++------+------+------+----------+------------+--------+
+|  101 | A    |    1 | Computer | 1999-12-12 |      1 |
+|  102 | B    |    1 | Computer | 1999-03-12 |      2 |
+|  103 | C    |    1 | Computer | 1999-04-12 |      3 |
+|  104 | D    |    1 | Computer | 1999-05-12 |      4 |
+|  105 | E    |    1 | Computer | 1999-06-12 |      5 |
+|  106 | F    |    1 | Computer | 1999-07-12 |      6 |
++------+------+------+----------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create view comp_view1 as select rollno,name,did,grno from Student;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from comp_view1;
++--------+------+------+------+
+| rollno | name | did  | grno |
++--------+------+------+------+
+|      1 | A    |    1 |  101 |
+|      2 | B    |    1 |  102 |
+|      3 | C    |    1 |  103 |
+|      4 | D    |    1 |  104 |
+|      5 | E    |    1 |  105 |
+|      6 | F    |    1 |  106 |
+|      1 | A    |    2 |  201 |
+|      2 | B    |    2 |  202 |
+|      3 | C    |    2 |  203 |
+|      4 | D    |    2 |  204 |
+|      5 | E    |    2 |  205 |
+|      6 | E    |    2 |  206 |
+|      1 | A    |    3 |  301 |
+|      2 | B    |    3 |  302 |
+|      3 | C    |    3 |  303 |
+|      4 | D    |    3 |  304 |
+|      5 | E    |    3 |  305 |
+|      6 | F    |    3 |  306 |
+|      1 | A    |    4 |  401 |
+|      2 | B    |    4 |  402 |
+|      3 | C    |    4 |  403 |
+|      1 | A    |    5 |  501 |
+|      2 | B    |    5 |  502 |
+|      3 | C    |    5 |  503 |
+|      1 | A    |    6 |  601 |
+|      2 | B    |    6 |  602 |
++--------+------+------+------+
+26 rows in set (0.00 sec)
+
+mysql> create view comp_view2 as select * from Student where dname="Computer";
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from comp_view2;
++------+------+------+----------+------------+--------+
+| grno | name | did  | dname    | dob        | rollno |
++------+------+------+----------+------------+--------+
+|  101 | A    |    1 | Computer | 1999-12-12 |      1 |
+|  102 | B    |    1 | Computer | 1999-03-12 |      2 |
+|  103 | C    |    1 | Computer | 1999-04-12 |      3 |
+|  104 | D    |    1 | Computer | 1999-05-12 |      4 |
+|  105 | E    |    1 | Computer | 1999-06-12 |      5 |
+|  106 | F    |    1 | Computer | 1999-07-12 |      6 |
++------+------+------+----------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> drop view comp_view;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from comp_view;
+ERROR 1146 (42S02): Table 'college_info.comp_view' doesn't exist
+mysql> create index stud_index on Student(grno);
+Query OK, 0 rows affected (0.45 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> view index stud-inde;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'view index stud-inde' at line 1
+mysql> view index stud-index;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'view index stud-index' at line 1
+mysql> create table student(id int not null AUTO_INCREMENT,name varchar(30),class char(20));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> create table student(id int not_null AUTO_INCREMENT,name varchar(30),class char(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not_null AUTO_INCREMENT,name varchar(30),class char(20))' at line 1
+mysql> create table student(id int NOT NULL AUTO_INCREMENT,name varchar(30),class char(20));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> create table student(id int NOT_NULL AUTO_INCREMENT,name varchar(30),class char(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT_NULL AUTO_INCREMENT,name varchar(30),class char(20))' at line 1
+mysql> create table student(id int AUTO_INCREMENT,name varchar(30),class char(20));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> create table student(id int NOT_NULL AUTO_INCREMENT primary key,name varchar(30),class char(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT_NULL AUTO_INCREMENT primary key,name varchar(30),class char(20))' at line 1
+mysql> create table student(id int NOT_NULL AUTO_INCREMENT primary key,name varchar(30),class1 char(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT_NULL AUTO_INCREMENT primary key,name varchar(30),class1 char(20))' at line 1
+mysql> create table student(id int(3) AUTO_INCREMENT primary key,name varchar(30),class1 char(20));
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> create table student(id int(3) not null AUTO_INCREMENT primary key,name varchar(30),class1 char(20));
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> drop student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student' at line 1
+mysql> drop table student;
+Query OK, 0 rows affected (0.22 sec)
+
+mysql> create table student(id int(3) not null AUTO_INCREMENT primary key,name varchar(30),class1 char(20));
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> insert into student(name,class1) values("Anand","TEB");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into student(name,class1) values("Aniket","TEB");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into student(name,class1) values("Adesh","TEB");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into student(name,class1) values("Aniket Mate","TEB");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from student;
++----+-------------+--------+
+| id | name        | class1 |
++----+-------------+--------+
+|  1 | Anand       | TEB    |
+|  2 | Aniket      | TEB    |
+|  3 | Adesh       | TEB    |
+|  4 | Aniket Mate | TEB    |
++----+-------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+

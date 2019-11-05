@@ -1,0 +1,13 @@
+select name,subject,(((select count(*) from SurveyDB where c1=100)*100)/count(*) group by name,subject) as '%100',
+(((select count(*) from SurveyDB where  c1=75)*100)/count(*) group by name,subject) as '%75',
+(((select count(*) from SurveyDB where  c1=50)*100)/count(*) group by name,subject) as '%50',
+(((select count(*) from SurveyDB where  c1=25)*100)/count(*) group by name,subject) as '%25',
+(((select count(*) from SurveyDB where  c1=0)*100)/count(*) group by name,subject) as '%0'  
+from SurveyDB group by name,subject;
+
+
+
+select name,subject,(((select count(*) from SurveyDB where name = 'p1' and c1=100)*100)/count(*)) as '%100',(((select count(*) from SurveyDB where name = 'p1' and c1=75)*100)/count(*)) as '%75',(((select count(*) from SurveyDB where name = 'p1' and c1=50)*100)/count(*)) as '%50',(((select count(*) from SurveyDB where name = 'p1' and c1=25)*100)/count(*)) as '%25',(((select count(*) from SurveyDB where name = 'p1' and c1=0)*100)/count(*)) as '%0'  from SurveyDB where name = 'p1';
+
+
+

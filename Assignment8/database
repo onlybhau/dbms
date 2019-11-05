@@ -1,0 +1,82 @@
+mysql> source trigger.sql;
+Query OK, 0 rows affected (0.37 sec)
+
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.45 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table banking values(old.acount_no,old.name);
+end' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table banking values(old.acount_no,old.name);
+end' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table banking values(new.acount_no,new.name);
+end' at line 3
+mysql> drop table bank;
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> drop table banking;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> source trigger.sql;
+Query OK, 0 rows affected (0.31 sec)
+
+Query OK, 4 rows affected (0.05 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.44 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table banking values(old.acount_no,old.name);
+end' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table banking values(old.acount_no,old.name);
+end' at line 3
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table banking values(new.acount_no,new.name);
+end' at line 3
+mysql> drop table bank;
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> drop table banking;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> source trigger.sql;
+Query OK, 0 rows affected (0.36 sec)
+
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+Query OK, 0 rows affected (0.50 sec)
+
+Query OK, 0 rows affected (0.11 sec)
+
+Query OK, 0 rows affected (0.09 sec)
+
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from banking;
+Empty set (0.00 sec)
+
+mysql> select * from bank;
++-----------+----------+----------+
+| acount_no | name     | balance  |
++-----------+----------+----------+
+|         1 | Anand S1 | 10000.00 |
+|         2 | Anand S2 | 20000.00 |
+|         3 | Anand S3 | 30000.00 |
+|         4 | Anand S4 | 40000.00 |
++-----------+----------+----------+
+4 rows in set (0.01 sec)
+
+mysql> insert bank values(5,"Anand S5",50000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from banking;
++------------+----------+
+| account_no | name     |
++------------+----------+
+|          5 | Anand S5 |
++------------+----------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+

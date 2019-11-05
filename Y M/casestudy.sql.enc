@@ -1,0 +1,15 @@
+delimiter $$
+create procedure tarin()
+begin
+declare x date;
+declare sum,y double;
+
+
+select sum(amt) from tinfo where dor='2018-08-22';
+                                                         
+
+end $$
+delimiter ;
+
+
+     

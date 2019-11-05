@@ -1,0 +1,24 @@
+create table library(id int(2) primary key,name varchar(30) not null,price float(6,2) not null);
+insert into library values(01,"Ice & fire",546.345),(02,"zero to one",300),(03,"hit refresh",756.33);
+create table library_audit(id int(2) primary key,name varchar(30) not null);
+
+delimiter $$
+create trigger update_audit before update on library for each row
+begin
+	insert into library_audit values(old.id,old.name);
+end$$
+delimiter ;
+
+delimiter $$
+create trigger del_audit after delete on library for each row
+begin
+	insert into library_audit values(old.id,old.name);
+end$$
+delimiter ;
+
+delimiter $$
+create trigger ins_audit after insert on library for each row
+begin
+	insert into library_audit values(new.id,new.name);
+end$$
+delimiter ;

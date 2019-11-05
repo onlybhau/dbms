@@ -1,0 +1,2 @@
+create table sample(sname varchar(10),saddr char(11), dob date);
+insert into sample values('rutuja','a/p kopergaon','1999-04-08');

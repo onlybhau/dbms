@@ -1,0 +1,27 @@
+delimiter $$
+create procedure sal()
+begin
+declare c1 int;
+declare a,done int;
+declare c1 cursor for select eno from emp;
+
+declare continue handler for not found set done=1;
+open c1;
+a: loop
+if(done ) then 
+leave a;
+end if;
+
+fetch c1 into  a;
+select dno from emp;
+if(dno == 10) then
+select (salary+ salary*0.3) from emp =a;
+elsif(dno == 8) then
+select (salary+ salary*0.5) from emp =a;
+elseif(dno == 5) then
+select (salary+ salary*0.2) from emp =a;
+end if;
+end loop a;
+close c1;
+end $$
+delimiter ; 

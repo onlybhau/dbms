@@ -1,0 +1,3 @@
+create table x( def varchar(10));
+insert into x values('string');
+

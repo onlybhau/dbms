@@ -1,0 +1,45 @@
+db.review.insert(
+{
+	uid : "A",
+	comment : "product is good",
+	status : "Active"
+}
+);
+
+db.review.insert(
+{
+	uid : "A",
+	comment : "product is good",
+	status : "Inactive"
+}
+);
+
+db.review.insert(
+{
+	uid : "B",
+	comment : "Excellent",
+	status : "Active"
+}
+);
+
+db.review.insert(
+{
+	uid : "B",
+	comment : "Bad",
+	status : "Active"
+}
+);
+
+
+db.review.mapReduce
+(
+
+function(){emit(this.uid,1);},
+function(key,value){return Array.sum(value)},
+{
+	query:{status:"Active"},
+	out : "result_count"
+}
+);
+
+db.result_count.find().pretty();

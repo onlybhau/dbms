@@ -1,0 +1,23 @@
+delimiter $$
+create procedure cr()
+begin
+declare r, m,temp int;
+declare n varchar(12);
+declare b int default 0;
+declare c1 cursor for 
+select rno,name,marks from oldt;
+select count(*)  into temp from oldt ;
+
+open c1;
+repeat fetch c1 into r,n,m;
+
+delete from newt where  r=rno; 
+
+insert into newt values(r,n,m);
+set b=b+1;
+until b=temp
+end repeat;
+close c1;
+end $$
+delimiter ;
+ 

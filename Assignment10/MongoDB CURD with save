@@ -1,0 +1,326 @@
+> db.mobile.insert({Name:"Apple iphone",Price:"$280",Stock:300});
+WriteResult({ "nInserted" : 1 })
+> db.mobile.insert({Name:"Vivo V17 pro",Price:"$180",Stock:300});
+WriteResult({ "nInserted" : 1 })
+> db.mobile.insert({Name:"oppo Reno2",Price:"$180",Stock:300});
+WriteResult({ "nInserted" : 1 })
+> db.mobile.insert({Name:"Realmi",Price:"$180",Stock:300});
+WriteResult({ "nInserted" : 1 })
+
+
+
+
+> db.mobile.find().pretty()
+{
+	"_id" : ObjectId("5db651681cf265d784e0cc86"),
+	"Name" : "Apple iphone",
+	"Price" : "$280",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db651851cf265d784e0cc87"),
+	"Name" : "Vivo V17 pro",
+	"Price" : "$180",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db651991cf265d784e0cc88"),
+	"Name" : "oppo Reno2",
+	"Price" : "$180",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db651ab1cf265d784e0cc89"),
+	"Name" : "Realmi",
+	"Price" : "$180",
+	"Stock" : 300
+}
+
+
+
+> db.mobile.find({Price:"$180"}).pretty()
+{
+	"_id" : ObjectId("5db651851cf265d784e0cc87"),
+	"Name" : "Vivo V17 pro",
+	"Price" : "$180",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db651991cf265d784e0cc88"),
+	"Name" : "oppo Reno2",
+	"Price" : "$180",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db651ab1cf265d784e0cc89"),
+	"Name" : "Realmi",
+	"Price" : "$180",
+	"Stock" : 300
+}
+
+
+
+> db.mobile.find({Price:"$280"}).pretty()
+{
+	"_id" : ObjectId("5db651681cf265d784e0cc86"),
+	"Name" : "Apple iphone",
+	"Price" : "$280",
+	"Stock" : 300
+}
+
+
+
+> db.mobile.insert({Name:{first:"Apple",second:"iphone",third:"X"},Stock:{sell:10,in:190},price:"$300"});
+
+
+> db.mobile.find({price:"$300"}).pretty()
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X"
+	},
+	"Stock" : {
+		"sell" : 10,
+		"in" : 190
+	},
+	"price" : "$300"
+}
+
+
+
+
+
+> db.mobile.find({"Name.first":"Apple"}).pretty()
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X"
+	},
+	"Stock" : {
+		"sell" : 10,
+		"in" : 190
+	},
+	"price" : "$300"
+}
+
+
+
+
+> db.mobile.find({"Name.third":"X"}).pretty()
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X"
+	},
+	"Stock" : {
+		"sell" : 10,
+		"in" : 190
+	},
+	"price" : "$300"
+}
+
+
+
+> db.mobile.update({price:"$300"},{$set:{"Name.third":"X11"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.mobile.find({price:"$300"}).pretty()
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X11"
+	},
+	"Stock" : {
+		"sell" : 10,
+		"in" : 190
+	},
+	"price" : "$300"
+}
+
+
+
+> db.mobile.update({price:"$300"},{$set:{"Name.third":"X11","Stock.sell":20,"in":180}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.mobile.find({price:"$300"}).pretty()
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X11"
+	},
+	"Stock" : {
+		"sell" : 20,
+		"in" : 190
+	},
+	"price" : "$300",
+	"in" : 180
+}
+> db.mobile.update({price:"$300"},{$set:{"Name.third":"X11","Stock.sell":20,"Stock.in":180}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.mobile.find({price:"$300"}).pretty()
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X11"
+	},
+	"Stock" : {
+		"sell" : 20,
+		"in" : 180
+	},
+	"price" : "$300",
+	"in" : 180
+}
+
+
+>db.mobile.remove()  ----Remove All Document of collection Mobile...
+
+
+
+> db.mobile.find().pretty()
+{
+	"_id" : ObjectId("5db651681cf265d784e0cc86"),
+	"Name" : "Apple iphone",
+	"Price" : "$280",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db651851cf265d784e0cc87"),
+	"Name" : "Vivo V17 pro",
+	"Price" : "$180",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db651991cf265d784e0cc88"),
+	"Name" : "oppo Reno2",
+	"Price" : "$180",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db651ab1cf265d784e0cc89"),
+	"Name" : "Realmi",
+	"Price" : "$180",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X11"
+	},
+	"Stock" : {
+		"sell" : 20,
+		"in" : 180
+	},
+	"price" : "$300",
+	"in" : 180
+}
+> db.mobile.remove({Price:"$180"})
+WriteResult({ "nRemoved" : 3 })
+> db.mobile.find().pretty()
+{
+	"_id" : ObjectId("5db651681cf265d784e0cc86"),
+	"Name" : "Apple iphone",
+	"Price" : "$280",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X11"
+	},
+	"Stock" : {
+		"sell" : 20,
+		"in" : 180
+	},
+	"price" : "$300",
+	"in" : 180
+}
+> 
+
+
+
+> doc.Name="Lava k350"
+Lava k350
+> doc.price="$220"
+$220
+> db.mobile.insert(doc)
+WriteResult({ "nInserted" : 1 })
+> db.mobile.find().pretty()
+{
+	"_id" : ObjectId("5db651681cf265d784e0cc86"),
+	"Name" : "Apple iphone",
+	"Price" : "$280",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X11"
+	},
+	"Stock" : {
+		"sell" : 20,
+		"in" : 180
+	},
+	"price" : "$300",
+	"in" : 180
+}
+{
+	"_id" : ObjectId("5db6bce31cf265d784e0cc8b"),
+	"Name" : "Lava k350",
+	"price" : "$220"
+}
+> doc.price="$320"
+$320
+> db.mobile.save(doc)
+WriteResult({ "nInserted" : 1 })
+> db.mobile.find().pretty()
+{
+	"_id" : ObjectId("5db651681cf265d784e0cc86"),
+	"Name" : "Apple iphone",
+	"Price" : "$280",
+	"Stock" : 300
+}
+{
+	"_id" : ObjectId("5db653ea1cf265d784e0cc8a"),
+	"Name" : {
+		"first" : "Apple",
+		"second" : "iphone",
+		"third" : "X11"
+	},
+	"Stock" : {
+		"sell" : 20,
+		"in" : 180
+	},
+	"price" : "$300",
+	"in" : 180
+}
+{
+	"_id" : ObjectId("5db6bce31cf265d784e0cc8b"),
+	"Name" : "Lava k350",
+	"price" : "$220"
+}
+{
+	"_id" : ObjectId("5db6bd321cf265d784e0cc8c"),
+	"Name" : "Lava k350",
+	"price" : "$320"
+}
+> 
+
+
+
+

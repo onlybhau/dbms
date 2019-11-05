@@ -1,0 +1,275 @@
+﻿[student@localhost ~]$ sudo service mongod start
+[sudo] password for student: 
+Redirecting to /bin/systemctl start  mongod.service
+[student@localhost ~]$ mongo
+MongoDB shell version: 2.4.6
+connecting to: test
+> show dbs;
+Games	0.203125GB
+local	0.078125GB
+mdb	0.203125GB
+moviedb	0.203125GB
+products	0.203125GB
+sample	0.203125GB
+> use moviedb;
+switched to db moviedb
+> db.moviedb.find();
+> db.emp.find;
+function ( query , fields , limit , skip, batchSize, options ){
+    var cursor = new DBQuery( this._mongo , this._db , this ,
+                        this._fullName , this._massageObject( query ) , fields , limit , skip , batchSize , options || this.getQueryOptions() );
+
+    var connObj = this.getMongo();
+    var readPrefMode = connObj.getReadPrefMode();
+    if (readPrefMode != null) {
+        cursor.readPref(readPrefMode, connObj.getReadPrefTagSet());
+    }
+
+    return cursor;
+}
+> show collections;
+movie
+system.indexes
+> db.movie.find();
+{ "_id" : ObjectId("5d67639c965a1a4ee3e53662"), "title" : "Fight Club", "writer" : " Chuck Palahniuk", "year" : 1999, "actors" : [  "Brad Pitt",  "Brad Pitt" ] }
+{ "_id" : ObjectId("5d6763f9965a1a4ee3e53663"), "title" : "Pulp Fiction", "writer" : "Quentin Tarantino", "year" : 1994, "actors" : [  "John Travolta",  "Uma Thurman" ] }
+{ "_id" : ObjectId("5d67645a965a1a4ee3e53664"), "title" : "Inglorious Basterds", "writer" : "Quentin Tarantino", "year" : 2009, "actors" : [  "Brad Pitt",  "Diane Kruger",  "Eli Roth" ] }
+{ "_id" : ObjectId("5d676504965a1a4ee3e53665"), "title" : " The Hobbit: An Unexpected Journey", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit" }
+{ "_id" : ObjectId("5d676568965a1a4ee3e53666"), "title" : " The Hobbit: The Battle of the Five Armies", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit", "synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness." }
+> db.movie.update({title:"The Hobbit: An Unexpected Journey"},{$set:{synopsis:"A reluctant hobbit, Bilbo;
+... Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their
+... mountain home - and the gold within it - from the dragon Smaug."}});
+Wed Sep  4 14:51:27.273 SyntaxError: Unexpected token ILLEGAL
+> db.movie.update({title:"The Hobbit: An Unexpected Journey"},{$set:{synopsis:"A reluctant hobbit, Bilbo; Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}});
+> db.movie.update({title:"The Hobbit: The Desolation of Smaug"},{synopsis:: "The dwarves, along with Bilbo
+... Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from
+... Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."}});
+Wed Sep  4 14:55:31.920 SyntaxError: Unexpected token :
+> db.movie.update({title:"The Hobbit: The Desolation of Smaug"},{$set:{synopsis:: "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."}});
+Wed Sep  4 14:55:59.913 SyntaxError: Unexpected token :
+> db.movie.update({title:"The Hobbit: The Desolation of Smaug"},{$set:{synopsis: "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."}});
+> db.movie.update({title:"Pulp Fiction"},{$set:{actor:"Samuel L. Jackson"}});
+> db.movie.find();
+{ "_id" : ObjectId("5d67639c965a1a4ee3e53662"), "title" : "Fight Club", "writer" : " Chuck Palahniuk", "year" : 1999, "actors" : [  "Brad Pitt",  "Brad Pitt" ] }
+{ "_id" : ObjectId("5d67645a965a1a4ee3e53664"), "title" : "Inglorious Basterds", "writer" : "Quentin Tarantino", "year" : 2009, "actors" : [  "Brad Pitt",  "Diane Kruger",  "Eli Roth" ] }
+{ "_id" : ObjectId("5d676504965a1a4ee3e53665"), "title" : " The Hobbit: An Unexpected Journey", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit" }
+{ "_id" : ObjectId("5d676568965a1a4ee3e53666"), "title" : " The Hobbit: The Battle of the Five Armies", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit", "synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness." }
+{ "_id" : ObjectId("5d6763f9965a1a4ee3e53663"), "actor" : "Samuel L. Jackson", "actors" : [  "John Travolta",  "Uma Thurman" ], "title" : "Pulp Fiction", "writer" : "Quentin Tarantino", "year" : 1994 }
+> db.movie.find().pretty();
+{
+	"_id" : ObjectId("5d67639c965a1a4ee3e53662"),
+	"title" : "Fight Club",
+	"writer" : " Chuck Palahniuk",
+	"year" : 1999,
+	"actors" : [
+		"Brad Pitt",
+		"Brad Pitt"
+	]
+}
+{
+	"_id" : ObjectId("5d67645a965a1a4ee3e53664"),
+	"title" : "Inglorious Basterds",
+	"writer" : "Quentin Tarantino",
+	"year" : 2009,
+	"actors" : [
+		"Brad Pitt",
+		"Diane Kruger",
+		"Eli Roth"
+	]
+}
+{
+	"_id" : ObjectId("5d676504965a1a4ee3e53665"),
+	"title" : " The Hobbit: An Unexpected Journey",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit"
+}
+{
+	"_id" : ObjectId("5d676568965a1a4ee3e53666"),
+	"title" : " The Hobbit: The Battle of the Five Armies",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit",
+	"synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness."
+}
+{
+	"_id" : ObjectId("5d6763f9965a1a4ee3e53663"),
+	"actor" : "Samuel L. Jackson",
+	"actors" : [
+		"John Travolta",
+		"Uma Thurman"
+	],
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994
+}
+> db.movie.find({"bilbo"});
+Wed Sep  4 15:05:13.447 SyntaxError: Unexpected token }
+> db.movie.find({title:"bilbo"});
+> db.movie.find({synopsis:"bilbo"});
+> db.movie.find({synopsis:"%bilbo"});
+> db.movie.find({synopsis:"%bilbo%"});
+> db.movie.find({$text:{$search:"Bilbo"}});
+error: { "$err" : "invalid operator: $search", "code" : 10068 }
+> db.movie.find({synopsis:/*Bilbo*\});
+Wed Sep  4 15:40:16.447 SyntaxError: Unexpected token ILLEGAL
+> db.movie.find({synopsis:/.*Bilbo.*/});
+{ "_id" : ObjectId("5d676568965a1a4ee3e53666"), "title" : " The Hobbit: The Battle of the Five Armies", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit", "synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness." }
+> db.movie.find({synopsis:/.*Gandalf.*/});
+> db.movie.update({title:"Pulp Fiction"},{$set:{actor:"Samuel L. Jackson"}});
+> db.movie.find()
+{ "_id" : ObjectId("5d67639c965a1a4ee3e53662"), "title" : "Fight Club", "writer" : " Chuck Palahniuk", "year" : 1999, "actors" : [  "Brad Pitt",  "Brad Pitt" ] }
+{ "_id" : ObjectId("5d67645a965a1a4ee3e53664"), "title" : "Inglorious Basterds", "writer" : "Quentin Tarantino", "year" : 2009, "actors" : [  "Brad Pitt",  "Diane Kruger",  "Eli Roth" ] }
+{ "_id" : ObjectId("5d676504965a1a4ee3e53665"), "title" : " The Hobbit: An Unexpected Journey", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit" }
+{ "_id" : ObjectId("5d676568965a1a4ee3e53666"), "title" : " The Hobbit: The Battle of the Five Armies", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit", "synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness." }
+{ "_id" : ObjectId("5d6763f9965a1a4ee3e53663"), "actor" : "Samuel L. Jackson", "actors" : [  "John Travolta",  "Uma Thurman" ], "title" : "Pulp Fiction", "writer" : "Quentin Tarantino", "year" : 1994 }
+> db.movie.find().pretty
+function (){
+    this._prettyShell = true;
+    return this;
+}
+> db.movie.find().pretty()
+{
+	"_id" : ObjectId("5d67639c965a1a4ee3e53662"),
+	"title" : "Fight Club",
+	"writer" : " Chuck Palahniuk",
+	"year" : 1999,
+	"actors" : [
+		"Brad Pitt",
+		"Brad Pitt"
+	]
+}
+{
+	"_id" : ObjectId("5d67645a965a1a4ee3e53664"),
+	"title" : "Inglorious Basterds",
+	"writer" : "Quentin Tarantino",
+	"year" : 2009,
+	"actors" : [
+		"Brad Pitt",
+		"Diane Kruger",
+		"Eli Roth"
+	]
+}
+{
+	"_id" : ObjectId("5d676504965a1a4ee3e53665"),
+	"title" : " The Hobbit: An Unexpected Journey",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit"
+}
+{
+	"_id" : ObjectId("5d676568965a1a4ee3e53666"),
+	"title" : " The Hobbit: The Battle of the Five Armies",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit",
+	"synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness."
+}
+{
+	"_id" : ObjectId("5d6763f9965a1a4ee3e53663"),
+	"actor" : "Samuel L. Jackson",
+	"actors" : [
+		"John Travolta",
+		"Uma Thurman"
+	],
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994
+}
+> db.movie.update({title:"Pulp Fiction"},{$set:{actors:"Samuel L. Jackson"}});
+> db.movie.find().pretty()
+{
+	"_id" : ObjectId("5d67639c965a1a4ee3e53662"),
+	"title" : "Fight Club",
+	"writer" : " Chuck Palahniuk",
+	"year" : 1999,
+	"actors" : [
+		"Brad Pitt",
+		"Brad Pitt"
+	]
+}
+{
+	"_id" : ObjectId("5d67645a965a1a4ee3e53664"),
+	"title" : "Inglorious Basterds",
+	"writer" : "Quentin Tarantino",
+	"year" : 2009,
+	"actors" : [
+		"Brad Pitt",
+		"Diane Kruger",
+		"Eli Roth"
+	]
+}
+{
+	"_id" : ObjectId("5d676504965a1a4ee3e53665"),
+	"title" : " The Hobbit: An Unexpected Journey",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit"
+}
+{
+	"_id" : ObjectId("5d676568965a1a4ee3e53666"),
+	"title" : " The Hobbit: The Battle of the Five Armies",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit",
+	"synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness."
+}
+{
+	"_id" : ObjectId("5d6763f9965a1a4ee3e53663"),
+	"actor" : "Samuel L. Jackson",
+	"actors" : "Samuel L. Jackson",
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994
+}
+> db.movie.update({title:"Pulp Fiction"},{$set:{synopsis: "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."}});
+> db.movie.find({synopsis:/.*Gandalf.*/});
+{ "_id" : ObjectId("5d6763f9965a1a4ee3e53663"), "actor" : "Samuel L. Jackson", "actors" : "Samuel L. Jackson", "synopsis" : "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring.", "title" : "Pulp Fiction", "writer" : "Quentin Tarantino", "year" : 1994 }
+> db.movie.find({synopsis:/.*Gandalf.*/}).pretty();
+{
+	"_id" : ObjectId("5d6763f9965a1a4ee3e53663"),
+	"actor" : "Samuel L. Jackson",
+	"actors" : "Samuel L. Jackson",
+	"synopsis" : "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring.",
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994
+}
+> db.movie.find({$and:[{synopsis:/.*dwarves.*/},{synopsis:/.*Hobbit.*/]}).pretty();
+... '
+... ;;
+... //
+... //*
+... }
+... }]);
+... ]}});
+... ]}}
+... /c
+... ^C
+
+> db.movie.find({$and:[{synopsis:/.*dwarves.*/},{synopsis:/.*Hobbit.*/]}).pretty();
+... ^C
+
+> db.movie.find({$and:[{synopsis:/.*dwarves.*/},{synopsis:/.*Hobbit.*/}]}).pretty();
+> db.movie.find({$and:[{synopsis:/.*dwarves.*/},{synopsis:/.*Bilbo~.*/}]}).pretty();
+> db.movie.find({$and:[{synopsis:/.*dwarves.*/},{synopsis:/.*Bilbo.*/}]}).pretty();
+{
+	"_id" : ObjectId("5d6763f9965a1a4ee3e53663"),
+	"actor" : "Samuel L. Jackson",
+	"actors" : "Samuel L. Jackson",
+	"synopsis" : "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring.",
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994
+}
+> db.movie.find({$or:[{synopsis:/.*dwarves.*/},{synopsis:/.*Hobbit.*/}]}).pretty();
+{
+	"_id" : ObjectId("5d6763f9965a1a4ee3e53663"),
+	"actor" : "Samuel L. Jackson",
+	"actors" : "Samuel L. Jackson",
+	"synopsis" : "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring.",
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994
+}
+> 

@@ -1,0 +1,19 @@
+delimiter //
+create procedure bc(in a int)
+begin
+declare  x int;
+declare u,v,w varchar(12);
+set u='first';
+set v='second';
+set w='fail';
+
+select marks from student where rollno=a into x;
+if(x > 900 and x < 989) then
+insert into r values(a,x,u);
+elseif(x > 825 and x < 899) then
+insert into r values(a,x,v);
+elseif(x<825 and x>600) then
+insert into r values(a,x,w);
+end if;
+end //
+delimiter ;

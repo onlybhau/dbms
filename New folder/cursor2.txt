@@ -1,0 +1,44 @@
+create table train(train_no int primary key, train_name varchar(10) not null, deptarture_time time, arrival_time time, source varchar(10) not null, destination varchar(10) not null, boggie_no int not null, boggie_capacity int not null);
+
+create table passenger(id varchar(5) primary key, name varchar(10) not null, address varchar(10) not null, gender char(1) not null);
+
+create table ticket_info(train_no int, foreign key(train_no) references train(train_no), id varchar(5), foreign key(id) references passenger(id), ticket_no varchar(5) not null, no_of_berths int not null, reservation_date date not null, amount float(8,2) not null, status char(1) not null);
+
+
+insert into train values(1121,'MPM','16:30:00','23:00:00','mumbai','pune',12,75),(1122,'PKP','1:00:00','6:00:00','pune','kolhapur',16,75),(1123,'jdj','6:25:00','9:05:00','jalgaon','dhule',14,75);
+
+insert into passenger values('a101','nikhil','pune','m'),('a102','namrata','mumbai','f'),('a103','krishna','pune','m'),('a104','vijay','mumbai','m'),('a105','siya','pune','f'),('a106','geetanjali','jalgaon','f'),('a107','dhanush','dhule','m'),('a108','neeraj','dhule','m'),('a109','kajal','mumbai','f'),('a110','neha','jalgaon','f');
+
+insert into ticket_info values(1121,'a101','t222',2,'2018-08-24',300.55,'c'),(1121,'a102','t223',1,'2018-08-24',300.55,'c'),(1122,'a103','t224',1,'2018-08-22',288.34,'w'),(1122,'a105','t225',1,'2018-08-24',288.34,'c'),(1123,'a106','t226',1,'2018-08-24',101.78,'c'),(1123,'a110','t227',1,'2018-08-25',101.78,'c'),(1123,'a107','t228',1,'2018-08-26',101.78,'w'),(1123,'a108','t229',1,'2018-08-21',101.78,'c'),(1121,'a102','t230',1,'2018-08-24',300.55,'c');
+
+
+delimiter $$
+create function revenue_collection()
+returns float
+begin
+declare total_records int;
+declare dt date;
+declare record_count int default(0);
+declare total_amount float(8,2) default(0);
+declare temp_sum float(8,2) default(0);
+declare c1 cursor for select reservation_date,amount from ticket_info;
+select count(*) from ticket_info into total_records;
+open c1;
+repeat fetch c1 into dt,temp_sum;
+if (dt = '2018-08-24') then
+set total_amount = total_amount + temp_sum;
+end if;
+set record_count = record_count + 1;
+until record_count = total_records
+end repeat;
+close c1;
+return total_amount;
+end $$
+delimiter ;
+
+
+delimiter $$
+create function change_status()
+returns int
+begin
+

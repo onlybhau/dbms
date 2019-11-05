@@ -1,0 +1,496 @@
+﻿MariaDB [(none)]> create database railway101;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> use railway101
+Database changed
+MariaDB [railway101]> create table train(tno int,dtime time,atime time,source varchar(22),destination varchar(22),boggieno int,bcapacity double);
+Query OK, 0 rows affected (0.08 sec)
+
+MariaDB [railway101]> insert into train values(1,'2:33:00','12:22:00','pune',"kopergaon",11,78);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> insert into train values(2,'2:33:00','2:22:00','nagar',"kopergaon",12,78);
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [railway101]> insert into train values(3,'11:33:00','2:22:00','nagar','pune",12,68);
+    '> ;
+    '> ;;
+    '> /c
+    '> \c
+    '> /C
+    '> \C
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [railway101]> insert into train values(3,'11:33:00','2:22:00','nagar',"pune",12,68);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> create table passenger(pid int,pname char(22),addr varchar(33),gender);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1
+MariaDB [railway101]> create table passenger(pid int,pname char(22),addr varchar(33),"gender");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"gender")' at line 1
+MariaDB [railway101]> create table passenger(pid int,pname char(22),addr varchar(33),gender char);
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [railway101]> select *from train;
++------+----------+----------+--------+-------------+----------+-----------+
+| tno  | dtime    | atime    | source | destination | boggieno | bcapacity |
++------+----------+----------+--------+-------------+----------+-----------+
+|    1 | 02:33:00 | 12:22:00 | pune   | kopergaon   |       11 |        78 |
+|    2 | 02:33:00 | 02:22:00 | nagar  | kopergaon   |       12 |        78 |
+|    3 | 11:33:00 | 02:22:00 | nagar  | pune        |       12 |        68 |
++------+----------+----------+--------+-------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+MariaDB [railway101]> alter train add tname varchar(12) after tno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'train add tname varchar(12) after tno' at line 1
+MariaDB [railway101]> alter table  train add tname varchar(12) after tno;
+Query OK, 3 rows affected (0.11 sec)               
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [railway101]> update train set tname="sai express" where tno=1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [railway101]> update train set tname="kk" where tno=2;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [railway101]> update train set tname="pune express" where tno=3;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [railway101]> select *from train;
++------+--------------+----------+----------+--------+-------------+----------+-----------+
+| tno  | tname        | dtime    | atime    | source | destination | boggieno | bcapacity |
++------+--------------+----------+----------+--------+-------------+----------+-----------+
+|    1 | sai express  | 02:33:00 | 12:22:00 | pune   | kopergaon   |       11 |        78 |
+|    2 | kk           | 02:33:00 | 02:22:00 | nagar  | kopergaon   |       12 |        78 |
+|    3 | pune express | 11:33:00 | 02:22:00 | nagar  | pune        |       12 |        68 |
++------+--------------+----------+----------+--------+-------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+MariaDB [railway101]> desc passenger;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| pid    | int(11)     | YES  |     | NULL    |       |
+| pname  | char(22)    | YES  |     | NULL    |       |
+| addr   | varchar(33) | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+MariaDB [railway101]> insert into passenger values(101,'rahul','kopergaon','M');
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> insert into passenger values(102,'trupti','malkapur','F');
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [railway101]> insert into passenger values(102,'pooja','nagar','F');
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> delete from passenger where pname="pooja";
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> insert into passenger values(103,'pooja','nagar','F');
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [railway101]> select *from passenger;
++------+--------+-----------+--------+
+| pid  | pname  | addr      | gender |
++------+--------+-----------+--------+
+|  101 | rahul  | kopergaon | M      |
+|  102 | trupti | malkapur  | F      |
+|  103 | pooja  | nagar     | F      |
++------+--------+-----------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [railway101]> alter table passenger modify pid int primary key;
+Query OK, 3 rows affected (0.08 sec)               
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [railway101]> alter table train  modify tid int primary key;
+ERROR 1054 (42S22): Unknown column 'tid' in 'train'
+MariaDB [railway101]> alter table train  modify tno int primary key;
+Query OK, 3 rows affected (0.09 sec)               
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [railway101]> create tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double, pid foreign key references passenger(pid),tno foreign key references train(tno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double, pid for' at line 1
+MariaDB [railway101]> create tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  foreign key(pid) references passenger(pid), foreign key(tno) references train(tno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  foreig' at line 1
+MariaDB [railway101]> create tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  foreign key (pid) references passenger(pid), foreign key (tno) references train(tno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  foreig' at line 1
+MariaDB [railway101]> create tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  foriegn key (pid) references passenger(pid), foriegn key (tno) references train(tno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  forieg' at line 1
+MariaDB [railway101]> create tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  foriegn key (pid) references passenger(pid), foriegn key (tno) references train(tno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  forieg' at line 1
+MariaDB [railway101]> create tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  foreign key (pid) references passenger(pid), foreign key (tno) references train(tno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  foreig' at line 1
+MariaDB [railway101]> create table  tinfo(tino int  primary key,pid int,tno int,nos int,dor date,amt double,  foreign key (pid) references passenger(pid), foreign key (tno) references train(tno));
+Query OK, 0 rows affected (0.06 sec)
+
+MariaDB [railway101]> desc tinfo;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| tino  | int(11) | NO   | PRI | NULL    |       |
+| pid   | int(11) | YES  | MUL | NULL    |       |
+| tno   | int(11) | YES  | MUL | NULL    |       |
+| nos   | int(11) | YES  |     | NULL    |       |
+| dor   | date    | YES  |     | NULL    |       |
+| amt   | double  | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [railway101]> insert into tinfo values(1,101,1,55,'2018:08:22',200);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> select *from tinfo;
++------+------+------+------+------------+------+
+| tino | pid  | tno  | nos  | dor        | amt  |
++------+------+------+------+------------+------+
+|    1 |  101 |    1 |   55 | 2018-08-22 |  200 |
++------+------+------+------+------------+------+
+1 row in set (0.00 sec)
+
+MariaDB [railway101]> insert into tinfo values(2,102,1,35,'2018:08:22',700);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> insert into tinfo values(3,101,2,35,'2018:05:22',100);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> insert into tinfo values(4,103,2,45,'2019:05:22',430);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> select *from tinfo;
++------+------+------+------+------------+------+
+| tino | pid  | tno  | nos  | dor        | amt  |
++------+------+------+------+------------+------+
+|    1 |  101 |    1 |   55 | 2018-08-22 |  200 |
+|    2 |  102 |    1 |   35 | 2018-08-22 |  700 |
+|    3 |  101 |    2 |   35 | 2018-05-22 |  100 |
+|    4 |  103 |    2 |   45 | 2019-05-22 |  430 |
++------+------+------+------+------------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [railway101]> delimiter $$
+MariaDB [railway101]> create procedure tarin()
+    -> begin
+    -> declare x date;
+    -> declare sum,y double;
+    -> select dor into x from tinfo ;
+    -> if(x=="2018-08-22 ") then
+    -> select amt from tinfo into y;
+    -> 
+    -> sum=sum+y;                                                          
+    -> end if;
+    -> end $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '=="2018-08-22 ") then
+select amt from tinfo into y;
+
+sum=sum+y;                 ' at line 6
+MariaDB [railway101]> delimiter ;
+MariaDB [railway101]> desc passenger;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| pid    | int(11)     | NO   | PRI | NULL    |       |
+| pname  | char(22)    | YES  |     | NULL    |       |
+| addr   | varchar(33) | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+MariaDB [railway101]> delimiter $$
+MariaDB [railway101]> create procedure tarin()
+    -> begin
+    -> declare x date;
+    -> declare sum,y double;
+    -> select dor into x from tinfo ;
+    -> if(x=="2018-08-22 ") then
+    -> select amt from tinfo into y;
+    -> 
+    -> sum=sum+y;                                                          
+    -> end if;
+    -> end $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '=="2018-08-22 ") then
+select amt from tinfo into y;
+
+sum=sum+y;                 ' at line 6
+MariaDB [railway101]> delimiter ;
+MariaDB [railway101]> 
+MariaDB [railway101]> 
+MariaDB [railway101]> 
+MariaDB [railway101]> 
+MariaDB [railway101]> 
+MariaDB [railway101]> 
+MariaDB [railway101]> 
+MariaDB [railway101]>      
+MariaDB [railway101]> alter table tinfo add status char;
+Query OK, 4 rows affected (0.09 sec)               
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [railway101]> update tinfo  set status='w';
+Query OK, 4 rows affected (0.02 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+MariaDB [railway101]> select *from tinfo;
++------+------+------+------+------------+------+--------+
+| tino | pid  | tno  | nos  | dor        | amt  | status |
++------+------+------+------+------------+------+--------+
+|    1 |  101 |    1 |   55 | 2018-08-22 |  200 | w      |
+|    2 |  102 |    1 |   35 | 2018-08-22 |  700 | w      |
+|    3 |  101 |    2 |   35 | 2018-05-22 |  100 | w      |
+|    4 |  103 |    2 |   45 | 2019-05-22 |  430 | w      |
++------+------+------+------+------------+------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [railway101]> update tinfo set status='c' where pid=(select pid from passenger where pname='rahul');
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [railway101]> select *from tinfo;
++------+------+------+------+------------+------+--------+
+| tino | pid  | tno  | nos  | dor        | amt  | status |
++------+------+------+------+------------+------+--------+
+|    1 |  101 |    1 |   55 | 2018-08-22 |  200 | c      |
+|    2 |  102 |    1 |   35 | 2018-08-22 |  700 | w      |
+|    3 |  101 |    2 |   35 | 2018-05-22 |  100 | c      |
+|    4 |  103 |    2 |   45 | 2019-05-22 |  430 | w      |
++------+------+------+------+------------+------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [railway101]> update tinfo set status='c' where pid=(select pid from passenger where pname='rahul')and tno=1;
+Query OK, 0 rows affected (0.02 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+MariaDB [railway101]> select *from tinfo;
++------+------+------+------+------------+------+--------+
+| tino | pid  | tno  | nos  | dor        | amt  | status |
++------+------+------+------+------------+------+--------+
+|    1 |  101 |    1 |   55 | 2018-08-22 |  200 | c      |
+|    2 |  102 |    1 |   35 | 2018-08-22 |  700 | w      |
+|    3 |  101 |    2 |   35 | 2018-05-22 |  100 | c      |
+|    4 |  103 |    2 |   45 | 2019-05-22 |  430 | w      |
++------+------+------+------+------------+------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [railway101]> select sum(amt) from tinfo where dor='2018-08022';
++----------+
+| sum(amt) |
++----------+
+|     NULL |
++----------+
+1 row in set, 1 warning (0.00 sec)
+
+MariaDB [railway101]> select sum(amt) from tinfo where dor='2018-08-22';
++----------+
+| sum(amt) |
++----------+
+|      900 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [railway101]> delimiter $$
+MariaDB [railway101]> create procedure tarin()
+    -> begin
+    -> declare x date;
+    -> declare sum,y double;
+    -> 
+    -> 
+    -> select sum(amt) from tinfo where dor='2018-08-22';
+    ->                                                          
+    -> end if;
+    -> end $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'if;
+end' at line 9
+MariaDB [railway101]> delimiter ;
+MariaDB [railway101]> 
+MariaDB [railway101]> 
+MariaDB [railway101]>      delimiter $$
+MariaDB [railway101]> create procedure tarin()
+    -> begin
+    -> declare x date;
+    -> declare sum,y double;
+    -> 
+    -> 
+    -> select sum(amt) from tinfo where dor='2018-08-22';
+    ->                                                          
+    -> 
+    -> end $$
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [railway101]> delimiter ;
+MariaDB [railway101]> 
+MariaDB [railway101]> 
+MariaDB [railway101]>      call tarin();
++----------+
+| sum(amt) |
++----------+
+|      900 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [railway101]> create table emp(eno int,ename varchar(22),dno int,saiary double);
+Query OK, 0 rows affected (0.06 sec)
+
+MariaDB [railway101]> insert into emp values(101,'rahul',1,20000);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> insert into emp values(101,'sai',1,30000);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [railway101]> insert into emp values(103,'sa.pada',8,22000);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> insert into emp values(104,'pooja',10,25000);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [railway101]> insert into emp values(105,'trupti',5,15000);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [railway101]> update emp set eno=102 where ename='sai';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [railway101]> select *from emp;
++------+---------+------+--------+
+| eno  | ename   | dno  | saiary |
++------+---------+------+--------+
+|  101 | rahul   |    1 |  20000 |
+|  102 | sai     |    1 |  30000 |
+|  103 | sa.pada |    8 |  22000 |
+|  104 | pooja   |   10 |  25000 |
+|  105 | trupti  |    5 |  15000 |
++------+---------+------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [railway101]> delimiter $$
+MariaDB [railway101]> create procedure sal()
+    -> begin
+    -> declare c1 int;
+    -> declare a int;
+    -> declare c1 cursor for select eno from emp;
+    -> 
+    -> declare continue handler for not found set done=1;
+    -> open c1;
+    -> a: loop
+    -> if(done ) then 
+    -> leave a;
+    -> end if;
+    -> 
+    -> fetch c1 into  a;
+    -> select dno from emp;
+    -> if(dno==10) then
+    -> select (salary+ salary*0.3) from emp =a;
+    -> elsif(dno==8) then
+    -> select (salary+ salary*0.5) from emp =a;
+    -> elseif(dno==5) then
+    -> select (salary+ salary*0.2) from emp =a;
+    -> end if;
+    -> end loop a;
+    -> close c1;
+    -> end $$
+ERROR 1193 (HY000): Unknown system variable 'done'
+MariaDB [railway101]> delimiter ; 
+MariaDB [railway101]> source cs2.sql;
+ERROR: Failed to open file 'cs2.sql', error: 2
+MariaDB [railway101]> delimiter $$
+MariaDB [railway101]> create procedure sal()
+    -> begin
+    -> declare c1 int;
+    -> declare a,done int;
+    -> declare c1 cursor for select eno from emp;
+    -> 
+    -> declare continue handler for not found set done=1;
+    -> open c1;
+    -> a: loop
+    -> if(done ) then 
+    -> leave a;
+    -> end if;
+    -> 
+    -> fetch c1 into  a;
+    -> select dno from emp;
+    -> if(dno==10) then
+    -> select (salary+ salary*0.3) from emp =a;
+    -> elsif(dno==8) then
+    -> select (salary+ salary*0.5) from emp =a;
+    -> elseif(dno==5) then
+    -> select (salary+ salary*0.2) from emp =a;
+    -> end if;
+    -> end loop a;
+    -> close c1;
+    -> end $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '==10) then
+select (salary+ salary*0.3) from emp =a;
+elsif(dno==8) then
+select (s' at line 16
+MariaDB [railway101]> delimiter ; 
+MariaDB [railway101]> delimiter $$
+MariaDB [railway101]> create procedure sal()
+    -> begin
+    -> declare c1 int;
+    -> declare a,done int;
+    -> declare c1 cursor for select eno from emp;
+    -> 
+    -> declare continue handler for not found set done=1;
+    -> open c1;
+    -> a: loop
+    -> if(done ) then 
+    -> leave a;
+    -> end if;
+    -> 
+    -> fetch c1 into  a;
+    -> select dno from emp;
+    -> if(dno == 10) then
+    -> select (salary+ salary*0.3) from emp =a;
+    -> elsif(dno == 8) then
+    -> select (salary+ salary*0.5) from emp =a;
+    -> elseif(dno == 5) then
+    -> select (salary+ salary*0.2) from emp =a;
+    -> end if;
+    -> end loop a;
+    -> close c1;
+    -> end $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '== 10) then
+select (salary+ salary*0.3) from emp =a;
+elsif(dno == 8) then
+select' at line 16
+MariaDB [railway101]> delimiter ; 
+MariaDB [railway101]> delimiter $$
+MariaDB [railway101]> create procedure sal()
+    -> begin
+    -> declare c1 int;
+    -> declare a,done int;
+    -> declare c1 cursor for select eno from emp;
+    -> 
+    -> declare continue handler for not found set done=1;
+    -> open c1;
+    -> a: loop
+    -> if(done ) then 
+    -> leave a;
+    -> end if;
+    -> 
+    -> fetch c1 into  a;
+    -> select dno from emp where eno=a;
+    -> if(dno == 10) then
+    -> select (salary+ salary*0.3) from emp =a;
+    -> elsif(dno == 8) then
+    -> select (salary+ salary*0.5) from emp =a;
+    -> elseif(dno == 5) then
+    -> select (salary+ salary*0.2) from emp =a;
+    -> end if;
+    -> end loop a;
+    -> close c1;
+    -> end $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '== 10) then
+select (salary+ salary*0.3) from emp =a;
+elsif(dno == 8) then
+select' at line 16
+MariaDB [railway101]> delimiter ; 
+MariaDB [railway101]> Ctrl-C -- exit!
+Aborted
+[student@localhost ~]$ 

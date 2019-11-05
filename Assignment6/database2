@@ -1,0 +1,505 @@
+mysql> 
+mysql> create table train(train_no int(3) primary key,train_name varchar(30),depar_time time,arri_time time,source_station varchar(30),desti_station varchar(30),bogi_no int(3),bogi_capacity int(3));
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> create table passenger(passenger_id int(3) primary key,passenger_name varchar(30),address varchar(30),age int(3),gender char(1));
+Query OK, 0 rows affected (0.37 sec)
+
+mysql> create table tickit(train_no int(3),passenger_id int(3),no_of_seats int(3),bogi_no int(3),dor date,amount float(8,2),status char(4));
+Query OK, 0 rows affected (0.51 sec)
+
+mysql> desc train'
+    '> ;
+    '> ;;
+    '> ';
+Empty set (0.00 sec)
+
+mysql> desc train;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| train_no       | int(3)      | NO   | PRI | NULL    |       |
+| train_name     | varchar(30) | YES  |     | NULL    |       |
+| depar_time     | time        | YES  |     | NULL    |       |
+| arri_time      | time        | YES  |     | NULL    |       |
+| source_station | varchar(30) | YES  |     | NULL    |       |
+| desti_station  | varchar(30) | YES  |     | NULL    |       |
+| bogi_no        | int(3)      | YES  |     | NULL    |       |
+| bogi_capacity  | int(3)      | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> desc passenger;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| passenger_id   | int(3)      | NO   | PRI | NULL    |       |
+| passenger_name | varchar(30) | YES  |     | NULL    |       |
+| address        | varchar(30) | YES  |     | NULL    |       |
+| age            | int(3)      | YES  |     | NULL    |       |
+| gender         | char(1)     | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc tickit;
++--------------+------------+------+-----+---------+-------+
+| Field        | Type       | Null | Key | Default | Extra |
++--------------+------------+------+-----+---------+-------+
+| train_no     | int(3)     | YES  |     | NULL    |       |
+| passenger_id | int(3)     | YES  |     | NULL    |       |
+| no_of_seats  | int(3)     | YES  |     | NULL    |       |
+| bogi_no      | int(3)     | YES  |     | NULL    |       |
+| dor          | date       | YES  |     | NULL    |       |
+| amount       | float(8,2) | YES  |     | NULL    |       |
+| status       | char(4)    | YES  |     | NULL    |       |
++--------------+------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> drop table tickit;
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> create table tickit(train_no int(3),passenger_id int(3),no_of_seats int(3),bogi_no int(3),dor date,amount float(8,2),status char(4),foreign key(train_no) references train(train_no),foreign key(passenger_id) references passenger(passengge_id),foreign key(bogi_no) references train(bogi_no));
+ERROR 1215 (HY000): Cannot add foreign key constraint
+mysql> create table tickit(train_no int(3),passenger_id int(3),no_of_seats int(3),bogi_no int(3),dor date,amount float(8,2),status char(4),foreign key(train_no) references train(train_no),foreign key(passenger_id) references passenger(passengge_id));
+ERROR 1215 (HY000): Cannot add foreign key constraint
+mysql> create table tickit(train_no int(3),passenger_id int(3),no_of_seats int(3),bogi_no int(3),dor date,amount float(8,2),status char(4),foreign key(train_no) references train(train_no),foreign key(passenger_id) references passenger(passenger_id));
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> drop table tickit;
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> create table tickit(train_no int(3),passenger_id int(3),no_of_seats int(3),bogi_no int(3),dor date,amount float(8,2),status char(4),foreign key(train_no) references train(train_no),foreign key(passenger_id) references passenger(passenger_id));
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> desc tickit;
++--------------+------------+------+-----+---------+-------+
+| Field        | Type       | Null | Key | Default | Extra |
++--------------+------------+------+-----+---------+-------+
+| train_no     | int(3)     | YES  | MUL | NULL    |       |
+| passenger_id | int(3)     | YES  | MUL | NULL    |       |
+| no_of_seats  | int(3)     | YES  |     | NULL    |       |
+| bogi_no      | int(3)     | YES  |     | NULL    |       |
+| dor          | date       | YES  |     | NULL    |       |
+| amount       | float(8,2) | YES  |     | NULL    |       |
+| status       | char(4)    | YES  |     | NULL    |       |
++--------------+------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> insert into train(101,"Sai Express",'07:00:00','08:00:00',"Pune","Shirdi",20,100);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '101,"Sai Express",'07:00:00','08:00:00',"Pune","Shirdi",20,100)' at line 1
+mysql> insert into train(1,"Sai Express",'07:00:00','08:00:00',"Pune","Shirdi",20,100);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"Sai Express",'07:00:00','08:00:00',"Pune","Shirdi",20,100)' at line 1
+mysql> insert into train(1,"Sai Express",7:00:00,8:00:00,"Pune","Shirdi",20,100);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"Sai Express",7:00:00,8:00:00,"Pune","Shirdi",20,100)' at line 1
+mysql> insert into train values(101,"Sai Express",'07:00:00','08:00:00',"Pune","Shirdi",20,100);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into train values(102,"Chennai Express",'10:00:00','11:00:00',"Chennai","Shirdi",40,150);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into passsenger values(101,"Anand","Pune",20,"M");
+ERROR 1146 (42S02): Table 'Assi5.passsenger' doesn't exist
+mysql> insert into passenger  values(101,"Anand","Pune",20,"M");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into passenger  values(102,"Aniket","Chennai",20,"M");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from train;
++----------+-----------------+------------+-----------+----------------+---------------+---------+---------------+
+| train_no | train_name      | depar_time | arri_time | source_station | desti_station | bogi_no | bogi_capacity |
++----------+-----------------+------------+-----------+----------------+---------------+---------+---------------+
+|      101 | Sai Express     | 07:00:00   | 08:00:00  | Pune           | Shirdi        |      20 |           100 |
+|      102 | Chennai Express | 10:00:00   | 11:00:00  | Chennai        | Shirdi        |      40 |           150 |
++----------+-----------------+------------+-----------+----------------+---------------+---------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> mysql> select * from passenger;
+ERROR 1146 (42S02): Table 'Assi5.trfrom' doesn't exist
+mysql> select * from passenger;
++--------------+----------------+---------+------+--------+
+| passenger_id | passenger_name | address | age  | gender |
++--------------+----------------+---------+------+--------+
+|          101 | Anand          | Pune    |   20 | M      |
+|          102 | Aniket         | Chennai |   20 | M      |
++--------------+----------------+---------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into tickit values(101,101,2,4,'2019-08-27',0,"w");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into tickit values(102,102,10,4,'2019-08-27',0,"w");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+--------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount | status |
++----------+--------------+-------------+---------+------------+--------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 |   0.00 | w      |
+|      102 |          102 |          10 |       4 | 2019-08-27 |   0.00 | w      |
++----------+--------------+-------------+---------+------------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> source a.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=total+amt;
+set cnt=cnt+1;
+until cnt=temp
+end repeat;
+close c1;
+return total;
+en' at line 16
+mysql> source a.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set amt=seats*1000;
+total=total+amt;
+set cnt=cnt+1;
+until cnt=temp
+end repeat;
+c' at line 15
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select amount_cal();
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> drop function amount_cal();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1
+mysql> drop function amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select amount_cal();
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> drop function amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
+ERROR 1305 (42000): PROCEDURE Assi5.amount_cal does not exist
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> call amount_cal();
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
++---------+
+| amt     |
++---------+
+| 2000.00 |
++---------+
+1 row in set (0.00 sec)
+
++----------+
+| amt      |
++----------+
+| 10000.00 |
++----------+
+1 row in set (0.09 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+----------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount   | status |
++----------+--------------+-------------+---------+------------+----------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 |  2000.00 | w      |
+|      102 |          102 |          10 |       4 | 2019-08-27 | 10000.00 | w      |
++----------+--------------+-------------+---------+------------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+----------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount   | status |
++----------+--------------+-------------+---------+------------+----------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 |  4000.00 | w      |
+|      102 |          102 |          10 |       4 | 2019-08-27 | 20000.00 | w      |
++----------+--------------+-------------+---------+------------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+----------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount   | status |
++----------+--------------+-------------+---------+------------+----------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 |  4000.00 | c      |
+|      102 |          102 |          10 |       4 | 2019-08-27 | 20000.00 | c      |
++----------+--------------+-------------+---------+------------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into tickit values(102,102,10,4,'2019-08-27',0,"w");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> delete from tickit where status="w";
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+----------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount   | status |
++----------+--------------+-------------+---------+------------+----------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 |  4000.00 | c      |
+|      102 |          102 |          10 |       4 | 2019-08-27 | 20000.00 | c      |
++----------+--------------+-------------+---------+------------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into tickit values(103,103,20,4,'2019-08-27',0,"w");
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Assi5`.`tickit`, CONSTRAINT `tickit_ibfk_1` FOREIGN KEY (`train_no`) REFERENCES `train` (`train_no`))
+mysql> insert into tickit values(102,101,20,4,'2019-09-27',0,"w");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+----------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount   | status |
++----------+--------------+-------------+---------+------------+----------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 |  4000.00 | c      |
+|      102 |          102 |          10 |       4 | 2019-08-27 | 20000.00 | c      |
+|      102 |          101 |          20 |       4 | 2019-09-27 |     0.00 | w      |
++----------+--------------+-------------+---------+------------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.01 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+----------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount   | status |
++----------+--------------+-------------+---------+------------+----------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 |  4000.00 | c      |
+|      102 |          102 |          10 |       4 | 2019-08-27 | 20000.00 | c      |
+|      102 |          101 |          20 |       4 | 2019-09-27 |  4000.00 | c      |
++----------+--------------+-------------+---------+------------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> truncate table tickit;
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> insert into tickit values(101,101,2,4,'2019-08-27',0,"w");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into tickit values(102,102,20,4,'2019-08-27',0,"w");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into tickit values(101,102,20,4,'2019-09-27',0,"w");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+--------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount | status |
++----------+--------------+-------------+---------+------------+--------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 |   0.00 | w      |
+|      102 |          102 |          20 |       4 | 2019-08-27 |   0.00 | w      |
+|      101 |          102 |          20 |       4 | 2019-09-27 |   0.00 | w      |
++----------+--------------+-------------+---------+------------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+----------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount   | status |
++----------+--------------+-------------+---------+------------+----------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 |  4000.00 | c      |
+|      102 |          102 |          20 |       4 | 2019-08-27 | 40000.00 | c      |
+|      101 |          102 |          20 |       4 | 2019-09-27 | 40000.00 | c      |
++----------+--------------+-------------+---------+------------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> truncate table tickit;
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> insert into tickit values(101,101,2,4,'2019-08-27',0,"w");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into tickit values(101,102,20,4,'2019-09-27',0,"w");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into tickit values(102,102,20,4,'2019-08-27',0,"w");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call amount_cal();
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+----------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount   | status |
++----------+--------------+-------------+---------+------------+----------+--------+
+|      101 |          101 |           2 |       4 | 2019-08-27 | 40000.00 | c      |
+|      101 |          102 |          20 |       4 | 2019-09-27 |     0.00 | w      |
+|      102 |          102 |          20 |       4 | 2019-08-27 | 40000.00 | c      |
++----------+--------------+-------------+---------+------------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> truncate table tickit;
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> insert into tickit values(102,102,20,4,'2019-08-27',0,"w");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into tickit values(101,102,20,4,'2019-09-27',0,"w");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into tickit values(101,101,2,4,'2019-08-27',0,"w");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> drop procedure amount_cal;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amount_cal;
++------+
+| temp |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+ERROR 1329 (02000): No data - zero rows fetched, selected, or processed
+mysql> select * from tickit;
++----------+--------------+-------------+---------+------------+----------+--------+
+| train_no | passenger_id | no_of_seats | bogi_no | dor        | amount   | status |
++----------+--------------+-------------+---------+------------+----------+--------+
+|      102 |          102 |          20 |       4 | 2019-08-27 | 40000.00 | c      |
+|      101 |          102 |          20 |       4 | 2019-09-27 |     0.00 | w      |
+|      101 |          101 |           2 |       4 | 2019-08-27 |  4000.00 | c      |
++----------+--------------+-------------+---------+------------+----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+

@@ -1,0 +1,681 @@
+MariaDB [(none)]> use stud;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [stud]> select * from student;
++--------+----------+-------+
+| rollno | name     | marks |
++--------+----------+-------+
+|    101 | yashsavi |   800 |
+|    102 | rutuja   |   840 |
+|    104 | pooja    |   901 |
+|    103 | prajakta |   988 |
+|    105 | dhanu    |   877 |
+|    106 | sampada  |   400 |
++--------+----------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [stud]> select * from stud_result;;
+ERROR 1146 (42S02): Table 'stud.stud_result' doesn't exist
+ERROR: No query specified
+
+MariaDB [stud]> show tables;
++----------------+
+| Tables_in_stud |
++----------------+
+| result         |
+| student        |
++----------------+
+2 rows in set (0.00 sec)
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure rr(in a int)
+    -> begin
+    -> declare x int;
+    -> select marks from students where rollno=a into x;
+    -> if(x>990 and x<1500) then
+    -> insert into result values(a,x);
+    -> elseif(x>900 and x<989) then
+    -> insert into result values(a,x);
+    -> elseif(x>825 and x<899) then
+    -> insert into result values(a,x);
+    -> end if'
+    '> ;
+    '> '';
+    '> ';
+    -> end //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''
+;
+'';
+';
+end' at line 11
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure rr(in a int)
+    -> begin
+    -> declare x int;
+    -> select marks from students where rollno=a into x;
+    -> declare x int;
+[1]+  Stopped                 mysql -u root
+[student@localhost ~]$ sudo service mysqld start
+[sudo] password for student: 
+Sorry, try again.
+[sudo] password for student: 
+Redirecting to /bin/systemctl start  mysqld.service
+[student@localhost ~]$ mysql -u root;
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 5.5.33a-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2013, Oracle, Monty Program Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use stud;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [stud]> alter table result add mark double;
+Query OK, 3 rows affected (0.10 sec)               
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [stud]> create procedure rr(in a int)
+    ->     -> begin
+    ->     -> declare x int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> begin
+    -> declare x int' at line 2
+MariaDB [stud]>     -> select marks from students where rollno=a into x;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> select marks from students where rollno=a into x' at line 1
+MariaDB [stud]>     -> if(x>990 and x<1500) then
+    ->     -> insert into result values(a,x);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> if(x>990 and x<1500) then
+    -> insert into result values(a,x)' at line 1
+MariaDB [stud]>     -> elseif(x>900 and x<989) then
+    ->     -> insert into result values(a,x);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> elseif(x>900 and x<989) then
+    -> insert into result values(a,x)' at line 1
+MariaDB [stud]>     -> elseif(x>825 and x<899) then
+    ->     -> insert into result values(a,x);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> elseif(x>825 and x<899) then
+    -> insert into result values(a,x)' at line 1
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure rr(in a int)
+    ->     -> begin
+    ->     -> select marks from students where rollno=a into x;
+    ->     -> elseif(x>900 and x<989) then//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> begin
+    -> select marks from students where rollno=a into x;
+    -> elseif(' at line 2
+MariaDB [stud]> source my.sql;
+ERROR: Failed to open file 'my.sql;', error: 2
+MariaDB [stud]> source my.sql;
+ERROR: Failed to open file 'my.sql;', error: 2
+MariaDB [stud]> call aa(101);
+    -> //
+ERROR 1305 (42000): PROCEDURE stud.aa does not exist
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> source my.sql;
+ERROR 1064 (42000) at line 1 in file: 'my.sql': You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'delimiter//create procedure aa(in a int)
+begin
+declare x int' at line 1
+ERROR 1327 (42000) at line 5 in file: 'my.sql': Undeclared variable: x
+ERROR 1064 (42000) at line 6 in file: 'my.sql': You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'if(x>900 and x<989) then
+insert into result values(a,x)' at line 1
+ERROR 1064 (42000) at line 8 in file: 'my.sql': You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'else if(x>825 and x<899) then
+insert into result values(a,x)' at line 1
+ERROR 1064 (42000) at line 10 in file: 'my.sql': You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'else
+insert into result values(a,x)' at line 1
+ERROR 1064 (42000) at line 12 in file: 'my.sql': You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'end if' at line 1
+ERROR 1064 (42000) at line 13 in file: 'my.sql': You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'end//
+delimiter' at line 1
+MariaDB [stud]> source my.sql;
+ERROR 1064 (42000) at line 2 in file: 'my.sql': You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 12
+MariaDB [stud]> create table boooks(bid int primary key,bname varchar(20),duedate date);
+Query OK, 0 rows affected (0.06 sec)
+
+MariaDB [stud]> insert into books values(1,'c','2019-01-22');
+ERROR 1146 (42S02): Table 'stud.books' doesn't exist
+MariaDB [stud]> insert into boooks values(1,'c','2019-01-22');
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [stud]> insert into boooks values(2,'c++','2019-02-22');
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [stud]> insert into boooks values(3,'dbms','2019-08-22');
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [stud]> delimiter $$
+MariaDB [stud]> create function status_book(duedate)
+    -> return varchar(3)
+    -> begin
+    -> declare st varchar(3);
+    -> if curdate() >due
+    -> then set st='yes';
+    -> elseif curdate() <= due
+    -> then set st='no';
+    -> end if;
+    -> return st;
+    -> end$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')
+return varchar(3)
+begin
+declare st varchar(3);
+if curdate() >due
+then set st='' at line 1
+MariaDB [stud]> create function status_book(due date) return varchar(3) begin declare st varchar(3); if curdate() >due then set st='yes'; elseif curdate() <= due then set st='no'; end if; return st; end$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'return varchar(3) begin declare st varchar(3); if curdate() >due then set st='ye' at line 1
+MariaDB [stud]> create function status_book(due date) returns varchar(3) begin declare st varchar(3); if curdate() >due then set st='yes'; elseif curdate() <= due then set st='no'; end if; return st; end$$
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> select * from boooks;
++-----+-------+------------+
+| bid | bname | duedate    |
++-----+-------+------------+
+|   1 | c     | 2019-01-22 |
+|   2 | c++   | 2019-02-22 |
+|   3 | dbms  | 2019-08-22 |
++-----+-------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [stud]> select bid,bname,duedate,curdate() from boooks;
++-----+-------+------------+------------+
+| bid | bname | duedate    | curdate()  |
++-----+-------+------------+------------+
+|   1 | c     | 2019-01-22 | 2019-07-25 |
+|   2 | c++   | 2019-02-22 | 2019-07-25 |
+|   3 | dbms  | 2019-08-22 | 2019-07-25 |
++-----+-------+------------+------------+
+3 rows in set (0.00 sec)
+
+MariaDB [stud]> select bid,bname,duedate,curdate(),status_book(duedate) from boooks;
++-----+-------+------------+------------+----------------------+
+| bid | bname | duedate    | curdate()  | status_book(duedate) |
++-----+-------+------------+------------+----------------------+
+|   1 | c     | 2019-01-22 | 2019-07-25 | yes                  |
+|   2 | c++   | 2019-02-22 | 2019-07-25 | yes                  |
+|   3 | dbms  | 2019-08-22 | 2019-07-25 | no                   |
++-----+-------+------------+------------+----------------------+
+3 rows in set (0.00 sec)
+
+MariaDB [stud]> create table results(rollno int,marks double);
+Query OK, 0 rows affected (0.05 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> delimiter $$
+MariaDB [stud]> create function status_books(in due date) returns varchar(3) begin declare st varchar(3); if curdate() >due then set st='yes'; elseif curdate() <= due then set st='no'; end if; return st; end$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'in due date) returns varchar(3) begin declare st varchar(3); if curdate() >due t' at line 1
+MariaDB [stud]> create procedure ynn(in a int)     -> begin     -> declare x int;     -> select marks from student where rollno=a into x;     -> if(x>900 and x<989) then     -> insert into results  values(a,x);     -> elseif(x>825 and x<899) then     -> insert into results values(a,x);     -> end if  end //
+    -> end //
+    -> ;
+    -> ;;
+    -> //
+    -> create procedure ynn(in a int)     -> begin     -> declare x int;     -> select marks from student where rollno=a into x;     -> if(x>900 and x<989) then     -> insert into results  values(a,x);     -> elseif(x>825 and x<899) then     -> insert into results values(a,x);     -> end if  
+    -> end//
+    -> // //
+    -> '//
+    '> ';;
+    -> ;
+    ->  //
+    -> $$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> begin     -> declare x int;     -> select marks from student where rollno=a i' at line 1
+MariaDB [stud]> create procedure ynn(in a int)     -> begin     -> declare x int;     -> select marks from student where rollno=a into x;     -> if(x>900 and x<989) then     -> insert into results  values(a,x);     -> elseif(x>825 and x<899) then     -> insert into results values(a,x);     -> end if  end // end // ; ;; // create procedure ynn(in a int)     -> begin     -> declare x int;     -> select marks from student where rollno=a into x;     -> if(x>900 and x<989) then     -> insert into results  values(a,x);     -> elseif(x>825 and x<899) then     -> insert into results values(a,x);     -> end if;  
+    -> end$$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '-> begin     -> declare x int;     -> select marks from student where rollno=a i' at line 1
+MariaDB [stud]> delimiter //;
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procrdure dd(in s int)
+    -> begin 
+    -> declare x double;
+    -> select marks from student where rollno=a INTO x;
+    -> if(x>900 and x<990) then
+    -> insert into results values(s,x);
+    -> elseif(x>824 and x<899) then
+    -> insert into results values(s,x);
+    -> end if;
+    -> end //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'procrdure dd(in s int)
+begin 
+declare x double;
+select marks from student where ' at line 1
+MariaDB [stud]> create procrdure dd(in s int) begin  declare x double; select marks from student where rollno=s INTO x; if(x>900 and x<990) then insert into results values(s,x); elseif(x>824 and x<899) then insert into results values(s,x); end if; end//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'procrdure dd(in s int) begin  declare x double; select marks from student where ' at line 1
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure aa(in a int)
+    -> begin
+    -> declare  x int;
+    -> select marks from student where rollno=a into x;
+    -> if(x > 900 and x < 989) then
+    -> insert into result values(a,x);
+    -> else if(x > 825 and x < 899) then
+    -> insert into result values(a,x);
+    -> else
+    -> insert into result values(a,x);
+    -> end if;
+    -> end //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 12
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure aa(in a int)
+    -> begin
+    -> declare  x int;
+    -> select marks from student where rollno=a into x;
+    -> if(x > 900 and x < 989) then
+    -> insert into result values(a,x);
+    -> else if(x > 825 and x < 899) then
+    -> insert into result values(a,x);
+    -> else
+    -> insert into result values(a,x);
+    -> endif;
+    -> end //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ';
+end' at line 11
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure aa(in a int)
+    -> begin
+    -> declare  x int;
+    -> select marks from student where rollno=a into x;
+    -> if(x > 900 and x < 989) then
+    -> insert into results values(a,x);
+    -> elseif(x > 825 and x < 899) then
+    -> insert into results values(a,x);
+    -> elseif
+    -> insert into results values(a,x);
+    -> endif;
+    -> end //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'into results values(a,x);
+endif;
+end' at line 10
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure aa(in a int)
+    -> begin
+    -> declare  x int;
+    -> select marks from student where rollno=a into x;
+    -> if(x > 900 and x < 989) then
+    -> insert into results values(a,x);
+    -> elseif(x > 825 and x < 899) then
+    -> insert into results values(a,x);
+    -> elseif(x<825 and x>600) then
+    -> insert into results values(a,x);
+    -> endif;
+    -> end //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ';
+end' at line 11
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure aa(in a int)
+    -> begin
+    -> declare  x int;
+    -> select marks from student where rollno=a into x;
+    -> if(x > 900 and x < 989) then
+    -> insert into results values(a,x);
+    -> elseif(x > 825 and x < 899) then
+    -> insert into results values(a,x);
+    -> elseif(x<825 and x>600) then
+    -> insert into results values(a,x);
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter ;call aa(101);
+MariaDB [stud]> select *from results;
+    -> //
+    -> $$
+    ->  ;
+    -> ';
+    '> ;;
+    '>  ;
+    '> //
+    '> ';;
+    -> ;;
+    ->  ;
+    ->  ;
+    ->  $$
+    -> select *from results;;
+    -> ;;
+    -> // 
+    ->  ;;
+    -> //;
+    -> // $$;
+    -> 
+[2]+  Stopped                 mysql -u root
+[student@localhost ~]$ sudo service mysqld start;
+[sudo] password for student: 
+Redirecting to /bin/systemctl start  mysqld.service
+[student@localhost ~]$ mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 4
+Server version: 5.5.33a-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2013, Oracle, Monty Program Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use stud;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure aa(in a int)
+    -> begin
+    -> declare  x int;
+    -> select marks from student where rollno=a into x;
+    -> if(x > 900 and x < 989) then
+    -> insert into results values(a,x);
+    -> elseif(x > 825 and x < 899) then
+    -> insert into results values(a,x);
+    -> elseif(x<825 and x>600) then
+    -> insert into results values(a,x);
+    -> end if;
+    -> end //
+ERROR 1304 (42000): PROCEDURE aa already exists
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> call aa(101);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [stud]> select * from results;
++--------+-------+
+| rollno | marks |
++--------+-------+
+|    101 |   800 |
++--------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure all()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    -> a: loop
+    -> set temp=a;
+    -> call aa(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'all()
+begin
+declare a, b, temp int;
+select min(rollno),max(rollno) into a,b from' at line 1
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure upa()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    -> a: loop
+    -> set temp=a;
+    -> call aa(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> call upa();
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [stud]> select *from results;
++--------+-------+
+| rollno | marks |
++--------+-------+
+|    101 |   800 |
+|    101 |   800 |
+|    102 |   840 |
+|    103 |   988 |
+|    104 |   901 |
+|    105 |   877 |
++--------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [stud]> select rowid from results;
+ERROR 1054 (42S22): Unknown column 'rowid' in 'field list'
+MariaDB [stud]> select row id from results;
+ERROR 1054 (42S22): Unknown column 'row' in 'field list'
+MariaDB [stud]> alter table results add class varchar(12);
+Query OK, 6 rows affected (0.08 sec)               
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure upat()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    -> a: loop
+    -> set temp=a;
+    -> call aab(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> select *from results;
++--------+-------+-------+
+| rollno | marks | class |
++--------+-------+-------+
+|    101 |   800 | NULL  |
+|    101 |   800 | NULL  |
+|    102 |   840 | NULL  |
+|    103 |   988 | NULL  |
+|    104 |   901 | NULL  |
+|    105 |   877 | NULL  |
++--------+-------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure upatd()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    -> a: loop
+    -> set temp=a;
+    -> call aabc(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> select * from results;
++--------+-------+-------+
+| rollno | marks | class |
++--------+-------+-------+
+|    101 |   800 | NULL  |
+|    101 |   800 | NULL  |
+|    102 |   840 | NULL  |
+|    103 |   988 | NULL  |
+|    104 |   901 | NULL  |
+|    105 |   877 | NULL  |
++--------+-------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [stud]> select rollno from student where rowid;
+ERROR 1054 (42S22): Unknown column 'rowid' in 'where clause'
+MariaDB [stud]> select rollno from student where rowid=1;
+ERROR 1054 (42S22): Unknown column 'rowid' in 'where clause'
+MariaDB [stud]> desc results;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | YES  |     | NULL    |       |
+| marks  | double      | YES  |     | NULL    |       |
+| class  | varchar(12) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+MariaDB [stud]> drop procedure aabc;
+ERROR 1305 (42000): PROCEDURE stud.aabc does not exist
+MariaDB [stud]> drop procedure upatd;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure upatd()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    ->  
+    -> a: loop
+    -> set temp=a;
+    -> call aabc(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> select *from results;
++--------+-------+-------+
+| rollno | marks | class |
++--------+-------+-------+
+|    101 |   800 | NULL  |
+|    101 |   800 | NULL  |
+|    102 |   840 | NULL  |
+|    103 |   988 | NULL  |
+|    104 |   901 | NULL  |
+|    105 |   877 | NULL  |
++--------+-------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [stud]> drop procedure upatd;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure upatd()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    ->  
+    -> a: loop
+    -> set temp=a;
+    -> call aabc(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> select * from results;
++--------+-------+-------+
+| rollno | marks | class |
++--------+-------+-------+
+|    101 |   800 | NULL  |
+|    101 |   800 | NULL  |
+|    102 |   840 | NULL  |
+|    103 |   988 | NULL  |
+|    104 |   901 | NULL  |
+|    105 |   877 | NULL  |
++--------+-------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [stud]> drop procedure upatd;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure upatd()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    ->  
+    -> a: loop
+    -> set temp=a;
+    -> call aabc(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> select * from results;
++--------+-------+-------+
+| rollno | marks | class |
++--------+-------+-------+
+|    101 |   800 | NULL  |
+|    101 |   800 | NULL  |
+|    102 |   840 | NULL  |
+|    103 |   988 | NULL  |
+|    104 |   901 | NULL  |
+|    105 |   877 | NULL  |
++--------+-------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [stud]> create table r;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [stud]> create table r(rollno int,marks double,class varchar(22));
+Query OK, 0 rows affected (0.07 sec)
+
+MariaDB [stud]> drop procedure upatd;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure upatd()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    ->  
+    -> a: loop
+    -> set temp=a;
+    -> call bc(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> select * from r;
+Empty set (0.00 sec)
+
+MariaDB [stud]> desc r;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | YES  |     | NULL    |       |
+| marks  | double      | YES  |     | NULL    |       |
+| class  | varchar(22) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+MariaDB [stud]> drop procedure upatd;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure upatd()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    ->  
+    -> a: loop
+    -> set temp=a;
+    -> call bc(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> select *from r;
+Empty set (0.00 sec)
+
+MariaDB [stud]> 
+

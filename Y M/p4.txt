@@ -1,0 +1,131 @@
+MariaDB [stud]> create procedure aa(in a int)
+    -> begin
+    -> declare  x int;
+    -> select marks from student where rollno=a into x;
+    -> if(x > 900 and x < 989) then
+    -> insert into results values(a,x);
+    -> elseif(x > 825 and x < 899) then
+    -> insert into results values(a,x);
+    -> elseif(x<825 and x>600) then
+    -> insert into results values(a,x);
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [stud]> delimiter ;call aa(101);
+MariaDB [stud]> select *from results;
+    -> //
+    -> $$
+    ->  ;
+    -> ';
+    '> ;;
+    '>  ;
+    '> //
+    '> ';;
+    -> ;;
+    ->  ;
+    ->  ;
+    ->  $$
+    -> select *from results;;
+    -> ;;
+    -> // 
+    ->  ;;
+    -> //;
+    -> // $$;
+    -> 
+[2]+  Stopped                 mysql -u root
+[student@localhost ~]$ sudo service mysqld start;
+[sudo] password for student: 
+Redirecting to /bin/systemctl start  mysqld.service
+[student@localhost ~]$ mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 4
+Server version: 5.5.33a-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2013, Oracle, Monty Program Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use stud;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure aa(in a int)
+    -> begin
+    -> declare  x int;
+    -> select marks from student where rollno=a into x;
+    -> if(x > 900 and x < 989) then
+    -> insert into results values(a,x);
+    -> elseif(x > 825 and x < 899) then
+    -> insert into results values(a,x);
+    -> elseif(x<825 and x>600) then
+    -> insert into results values(a,x);
+    -> end if;
+    -> end //
+ERROR 1304 (42000): PROCEDURE aa already exists
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> call aa(101);
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [stud]> select * from results;
++--------+-------+
+| rollno | marks |
++--------+-------+
+|    101 |   800 |
++--------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure all()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    -> a: loop
+    -> set temp=a;
+    -> call aa(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'all()
+begin
+declare a, b, temp int;
+select min(rollno),max(rollno) into a,b from' at line 1
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> delimiter //
+MariaDB [stud]> create procedure upa()
+    -> begin
+    -> declare a, b, temp int;
+    -> select min(rollno),max(rollno) into a,b from student;
+    -> a: loop
+    -> set temp=a;
+    -> call aa(temp);
+    -> set a=a+1;
+    -> if(a>b) then leave a;
+    -> end if;
+    -> end loop a;
+    -> end//
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [stud]> delimiter ;
+MariaDB [stud]> call upa();
+Query OK, 1 row affected (0.05 sec)
+
+MariaDB [stud]> select *from results;
++--------+-------+
+| rollno | marks |
++--------+-------+
+|    101 |   800 |
+|    101 |   800 |
+|    102 |   840 |
+|    103 |   988 |
+|    104 |   901 |
+|    105 |   877 |
++--------+-------+
+6 rows in set (0.00 sec)
+
+MariaDB [stud]> 
+

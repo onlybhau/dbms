@@ -1,0 +1,292 @@
+﻿[student@localhost ~]$ sudo service mongod start
+Redirecting to /bin/systemctl start  mongod.service
+[student@localhost ~]$ mongo
+MongoDB shell version: 2.4.6
+connecting to: test
+> use mdb
+switched to db mdb
+> show collections;
+emp
+system.indexes
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 1, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "ename" : "pooja", "eno" : 102, "naME" : "pooja" }
+{ "_id" : ObjectId("5d665d1ef9611d7b711984a7"), "eno" : 106, "ename" : "sanjivani", "dept" : 4, "salary" : 10298 }
+> db.emp.update({dept:002},{$set:{eno:102}});
+> db.emp.update({dept:002},{$set:{eno:104}});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 104, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "ename" : "pooja", "eno" : 102, "naME" : "pooja" }
+{ "_id" : ObjectId("5d665d1ef9611d7b711984a7"), "eno" : 106, "ename" : "sanjivani", "dept" : 4, "salary" : 10298 }
+> db.emp.update({dept:"002"},{$set:{eno:104}});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 104, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 104, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "ename" : "pooja", "eno" : 102, "naME" : "pooja" }
+{ "_id" : ObjectId("5d665d1ef9611d7b711984a7"), "eno" : 106, "ename" : "sanjivani", "dept" : 4, "salary" : 10298 }
+> db.emp.remove({ename:"poja"});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 104, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 104, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "ename" : "pooja", "eno" : 102, "naME" : "pooja" }
+{ "_id" : ObjectId("5d665d1ef9611d7b711984a7"), "eno" : 106, "ename" : "sanjivani", "dept" : 4, "salary" : 10298 }
+> db.emp.remove({ename:"pooja"});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 104, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 104, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665d1ef9611d7b711984a7"), "eno" : 106, "ename" : "sanjivani", "dept" : 4, "salary" : 10298 }
+> db.emp.ensureIndex({eno:1});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 104, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 104, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665d1ef9611d7b711984a7"), "eno" : 106, "ename" : "sanjivani", "dept" : 4, "salary" : 10298 }
+> db.emp.find().ensureIndex();
+Thu Aug 29 10:38:08.303 TypeError: Object DBQuery: mdb.emp -> { } has no method 'ensureIndex'
+> db.emp.ensureIndex();
+{
+	"err" : "no index name specified",
+	"code" : 12523,
+	"n" : 0,
+	"connectionId" : 1,
+	"ok" : 1
+}
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 104, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 104, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665d1ef9611d7b711984a7"), "eno" : 106, "ename" : "sanjivani", "dept" : 4, "salary" : 10298 }
+> 
+> 
+> 
+> use moviedb;
+switched to db moviedb
+> db.movie.insert({title : Fight Club
+... writer : Chuck Palahniuk
+... year : 1999
+... actors : [
+... Brad Pitt
+... "Edward Norton"]});
+Thu Aug 29 11:00:04.237 SyntaxError: Unexpected identifier
+> db.movie.insert({title:"Fight Club",writer :" Chuck Palahniuk",year : 1999,actors : [
+... Brad Pitt
+... Edward Norton]});
+Thu Aug 29 11:01:57.990 SyntaxError: Unexpected identifier
+> db.movie.insert({title:"Fight Club",writer :" Chuck Palahniuk",year : 1999,actors : ["Brad Pitt","Brad Pitt"]});
+> db.movie.insert({title:"Pulp Fiction",writer :"Quentin Tarantino",year : 1994,actors : ["John Travolta","Uma Thurman"]});
+> db.movie.insert({title:"Inglorious Basterds",writer :"Quentin Tarantino",year : 2009,actors : ["Brad Pitt","Diane Kruger","Eli Roth"]});
+> db.movie.insert({title : The Hobbit: An Unexpected Journey
+... writer : J.R.R. Tolkein
+... year : 2012
+... franchise : The Hobbit});
+Thu Aug 29 11:07:50.131 SyntaxError: Unexpected identifier
+> db.movie.insert({title :" The Hobbit: An Unexpected Journey", writer :" J.R.R. Tolkein", year : 2012, franchise :" The Hobbit"});
+> db.movie.insert({title : The Hobbit: The Battle of the Five Armies
+... writer : J.R.R. Tolkein
+... year : 2012
+... franchise : The Hobbit
+... synopsis : Bilbo and Company are forced to engage in a war against an array of
+... combatants and keep the Lonely Mountain from falling into the hands of a rising
+... darkness.});
+Thu Aug 29 11:09:54.445 SyntaxError: Unexpected identifier
+> db.movie.insert({title :" The Hobbit: The Battle of the Five Armies", writer :" J.R.R. Tolkein", year : 2012, franchise :" The Hobbit", synopsis :" Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness."});
+> db.movie.find();
+{ "_id" : ObjectId("5d67639c965a1a4ee3e53662"), "title" : "Fight Club", "writer" : " Chuck Palahniuk", "year" : 1999, "actors" : [  "Brad Pitt",  "Brad Pitt" ] }
+{ "_id" : ObjectId("5d6763f9965a1a4ee3e53663"), "title" : "Pulp Fiction", "writer" : "Quentin Tarantino", "year" : 1994, "actors" : [  "John Travolta",  "Uma Thurman" ] }
+{ "_id" : ObjectId("5d67645a965a1a4ee3e53664"), "title" : "Inglorious Basterds", "writer" : "Quentin Tarantino", "year" : 2009, "actors" : [  "Brad Pitt",  "Diane Kruger",  "Eli Roth" ] }
+{ "_id" : ObjectId("5d676504965a1a4ee3e53665"), "title" : " The Hobbit: An Unexpected Journey", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit" }
+{ "_id" : ObjectId("5d676568965a1a4ee3e53666"), "title" : " The Hobbit: The Battle of the Five Armies", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit", "synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness." }
+> db.movie.find().pretty();
+{
+	"_id" : ObjectId("5d67639c965a1a4ee3e53662"),
+	"title" : "Fight Club",
+	"writer" : " Chuck Palahniuk",
+	"year" : 1999,
+	"actors" : [
+		"Brad Pitt",
+		"Brad Pitt"
+	]
+}
+{
+	"_id" : ObjectId("5d6763f9965a1a4ee3e53663"),
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994,
+	"actors" : [
+		"John Travolta",
+		"Uma Thurman"
+	]
+}
+{
+	"_id" : ObjectId("5d67645a965a1a4ee3e53664"),
+	"title" : "Inglorious Basterds",
+	"writer" : "Quentin Tarantino",
+	"year" : 2009,
+	"actors" : [
+		"Brad Pitt",
+		"Diane Kruger",
+		"Eli Roth"
+	]
+}
+{
+	"_id" : ObjectId("5d676504965a1a4ee3e53665"),
+	"title" : " The Hobbit: An Unexpected Journey",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit"
+}
+{
+	"_id" : ObjectId("5d676568965a1a4ee3e53666"),
+	"title" : " The Hobbit: The Battle of the Five Armies",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit",
+	"synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness."
+}
+> db.movie.find({writer:"Quentin Tarantino"}).pretty();
+{
+	"_id" : ObjectId("5d6763f9965a1a4ee3e53663"),
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994,
+	"actors" : [
+		"John Travolta",
+		"Uma Thurman"
+	]
+}
+{
+	"_id" : ObjectId("5d67645a965a1a4ee3e53664"),
+	"title" : "Inglorious Basterds",
+	"writer" : "Quentin Tarantino",
+	"year" : 2009,
+	"actors" : [
+		"Brad Pitt",
+		"Diane Kruger",
+		"Eli Roth"
+	]
+}
+> db.movie.find({actors:"Brad Pitt"}).pretty();
+{
+	"_id" : ObjectId("5d67639c965a1a4ee3e53662"),
+	"title" : "Fight Club",
+	"writer" : " Chuck Palahniuk",
+	"year" : 1999,
+	"actors" : [
+		"Brad Pitt",
+		"Brad Pitt"
+	]
+}
+{
+	"_id" : ObjectId("5d67645a965a1a4ee3e53664"),
+	"title" : "Inglorious Basterds",
+	"writer" : "Quentin Tarantino",
+	"year" : 2009,
+	"actors" : [
+		"Brad Pitt",
+		"Diane Kruger",
+		"Eli Roth"
+	]
+}
+> db.movie.find({franchise:"The Hobbit"}).pretty();
+> db.movie.find({"franchise":"The Hobbit"}).pretty();
+> db.movie.find({"franchise":" The Hobbit"}).pretty();
+{
+	"_id" : ObjectId("5d676504965a1a4ee3e53665"),
+	"title" : " The Hobbit: An Unexpected Journey",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit"
+}
+{
+	"_id" : ObjectId("5d676568965a1a4ee3e53666"),
+	"title" : " The Hobbit: The Battle of the Five Armies",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit",
+	"synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness."
+}
+> db.movie.find({year:{{$and{$gt:{1901},{$lt:{1999}}}}}});
+Thu Aug 29 11:28:43.804 SyntaxError: Unexpected token {
+> db.movie.find({year:{{$and:[{$gt:{1901},{$lt:{1999}}]}}}});
+Thu Aug 29 11:29:16.276 SyntaxError: Unexpected token {
+> db.movie.find({year:{{$and:[{$gt:{1901}},{$lt:{1999}}]}}});
+Thu Aug 29 11:31:20.662 SyntaxError: Unexpected token {
+> db.movie.find({$and:[{$gt:{year:1901}},{$lt:{year:1999}}]}}});
+Thu Aug 29 11:32:48.479 SyntaxError: Unexpected token }
+> db.movie.find({$and:[{$gt:{year:1901}},{$lt:{year:1999}}]});
+> db.movie.find(year:{$lt:2012});
+Thu Aug 29 11:35:14.009 SyntaxError: Unexpected token :
+> db.movie.find({year:{$lt:2012}});
+{ "_id" : ObjectId("5d67639c965a1a4ee3e53662"), "title" : "Fight Club", "writer" : " Chuck Palahniuk", "year" : 1999, "actors" : [  "Brad Pitt",  "Brad Pitt" ] }
+{ "_id" : ObjectId("5d6763f9965a1a4ee3e53663"), "title" : "Pulp Fiction", "writer" : "Quentin Tarantino", "year" : 1994, "actors" : [  "John Travolta",  "Uma Thurman" ] }
+{ "_id" : ObjectId("5d67645a965a1a4ee3e53664"), "title" : "Inglorious Basterds", "writer" : "Quentin Tarantino", "year" : 2009, "actors" : [  "Brad Pitt",  "Diane Kruger",  "Eli Roth" ] }
+> db.movie.find({$and:[{year:{$gt:{1901}}},{year:{$lt:{1999}}}]});
+Thu Aug 29 11:38:03.947 SyntaxError: Unexpected token }
+> db.movie.find({$and:[{year:{$gt:1901}},{year:{$lt:1999}}]});
+{ "_id" : ObjectId("5d6763f9965a1a4ee3e53663"), "title" : "Pulp Fiction", "writer" : "Quentin Tarantino", "year" : 1994, "actors" : [  "John Travolta",  "Uma Thurman" ] }
+> db.movie.find({$and:[{year:{$gt:1901}},{year:{$lte:1999}}]});
+{ "_id" : ObjectId("5d67639c965a1a4ee3e53662"), "title" : "Fight Club", "writer" : " Chuck Palahniuk", "year" : 1999, "actors" : [  "Brad Pitt",  "Brad Pitt" ] }
+{ "_id" : ObjectId("5d6763f9965a1a4ee3e53663"), "title" : "Pulp Fiction", "writer" : "Quentin Tarantino", "year" : 1994, "actors" : [  "John Travolta",  "Uma Thurman" ] }
+> db.movie.find({$or:[{year:{$gt:2010}},{year:{$lte:2000}}]});
+{ "_id" : ObjectId("5d67639c965a1a4ee3e53662"), "title" : "Fight Club", "writer" : " Chuck Palahniuk", "year" : 1999, "actors" : [  "Brad Pitt",  "Brad Pitt" ] }
+{ "_id" : ObjectId("5d6763f9965a1a4ee3e53663"), "title" : "Pulp Fiction", "writer" : "Quentin Tarantino", "year" : 1994, "actors" : [  "John Travolta",  "Uma Thurman" ] }
+{ "_id" : ObjectId("5d676504965a1a4ee3e53665"), "title" : " The Hobbit: An Unexpected Journey", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit" }
+{ "_id" : ObjectId("5d676568965a1a4ee3e53666"), "title" : " The Hobbit: The Battle of the Five Armies", "writer" : " J.R.R. Tolkein", "year" : 2012, "franchise" : " The Hobbit", "synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness." }
+> db.movie.find({$or:[{year:{$gt:2010}},{year:{$lte:2000}}]}).pretty();;
+{
+	"_id" : ObjectId("5d67639c965a1a4ee3e53662"),
+	"title" : "Fight Club",
+	"writer" : " Chuck Palahniuk",
+	"year" : 1999,
+	"actors" : [
+		"Brad Pitt",
+		"Brad Pitt"
+	]
+}
+{
+	"_id" : ObjectId("5d6763f9965a1a4ee3e53663"),
+	"title" : "Pulp Fiction",
+	"writer" : "Quentin Tarantino",
+	"year" : 1994,
+	"actors" : [
+		"John Travolta",
+		"Uma Thurman"
+	]
+}
+{
+	"_id" : ObjectId("5d676504965a1a4ee3e53665"),
+	"title" : " The Hobbit: An Unexpected Journey",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit"
+}
+{
+	"_id" : ObjectId("5d676568965a1a4ee3e53666"),
+	"title" : " The Hobbit: The Battle of the Five Armies",
+	"writer" : " J.R.R. Tolkein",
+	"year" : 2012,
+	"franchise" : " The Hobbit",
+	"synopsis" : " Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into the hands of a rising darkness."
+}
+> 

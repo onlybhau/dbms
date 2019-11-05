@@ -1,0 +1,15 @@
+delimiter //
+create procedure upatd()
+begin
+declare a, b, temp int;
+select min(rollno),max(rollno) into a,b from student;
+ 
+a: loop
+set temp=a;
+call bc(temp);
+set a=a+1;
+if(a>b) then leave a;
+end if;
+end loop a;
+end//
+delimiter ;

@@ -1,0 +1,136 @@
+﻿[student@localhost ~]$ sudo service mongod start;
+[sudo] password for student: 
+Redirecting to /bin/systemctl start  mongod.service
+[student@localhost ~]$ mongo
+MongoDB shell version: 2.4.6
+connecting to: test
+> show dbs;
+Games	0.203125GB
+local	0.078125GB
+mdb	0.203125GB
+products	0.203125GB
+sample	0.203125GB
+> use mdb;
+switched to db mdb
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+> db.emp.insert({eno:111,ename:'trupti'});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+> var doc= {}
+> doc.eno=102
+102
+> doc.naME='poja';
+poja
+> db.insert(doc);
+Wed Aug 28 15:48:43.615 TypeError: Property 'insert' of object mdb is not a function
+> db.emp.insert(doc);
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "eno" : 102, "naME" : "poja" }
+> db.emp.find({_id=0});
+Wed Aug 28 15:49:25.980 SyntaxError: Unexpected token =
+> db.emp.find({eno=101}, {ename=1,_id=0});
+Wed Aug 28 15:50:24.277 SyntaxError: Unexpected token =
+> db.emp.find({eno=101}, {ename:1,_id:0});
+Wed Aug 28 15:50:36.973 SyntaxError: Unexpected token =
+> db.emp.find({eno:101}, {ename:1,_id:0});
+{ "ename" : "sai" }
+{ "ename" : { "first" : "sai", "last" : "prasad" } }
+> 
+> db.emp.find()[2]._if.getTimeStamp();
+Wed Aug 28 15:55:21.626 TypeError: Cannot call method 'getTimeStamp' of undefined
+> db.emp.find()[2]._id.getTimeStamp();
+Wed Aug 28 15:56:31.675 TypeError: Object ObjectId("5d665477f9611d7b711984a4") has no method 'getTimeStamp'
+> show collections;
+emp
+system.indexes
+> db.emp.find()[2].ename.getTimeStamp();
+Wed Aug 28 15:59:24.207 TypeError: Object trupti has no method 'getTimeStamp'
+> db.emp.find()[2]._id.getTimeStamp();
+Wed Aug 28 16:01:02.689 TypeError: Object ObjectId("5d665477f9611d7b711984a4") has no method 'getTimeStamp'
+> db.emp.insert({eno:121,ename:'mansi',_id=1});
+Wed Aug 28 16:02:31.673 SyntaxError: Unexpected token =
+> db.emp.insert({eno:121,ename:'mansi',_id:1});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "eno" : 102, "naME" : "poja" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+> doc.meta.os;
+Wed Aug 28 16:05:07.364 TypeError: Cannot read property 'os' of undefined
+> doc.meta.OS;
+Wed Aug 28 16:05:21.700 TypeError: Cannot read property 'OS' of undefined
+> db.emp.find({first:"sai"},{skills:0});
+> db.emp.find({ename.first:"sai"},{skills:0});
+Wed Aug 28 16:12:12.095 SyntaxError: Unexpected token .
+> db.emp.find({name.first:"sai"},{skills:0});
+Wed Aug 28 16:12:23.151 SyntaxError: Unexpected token .
+> db.emp.find({ename.first:"sai"},{skills:0});
+Wed Aug 28 16:13:47.744 SyntaxError: Unexpected token .
+> db.emp.insert({eno:1,ename:"mayuri",salary:20345,dept:2});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "eno" : 102, "naME" : "poja" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 1, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+> db.emp.update({ename:"poja"},{$set:{ename:"pooja"});
+... };
+Wed Aug 28 16:19:27.572 SyntaxError: Unexpected token )
+> db.emp.update({ename:"poja"},{$set:{ename:"pooja"}});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "eno" : 102, "naME" : "poja" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 1, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+> db.emp.update({naME:"poja"},{$set:{ename:"pooja"}});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 1, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "ename" : "pooja", "eno" : 102, "naME" : "poja" }
+> db.emp.update({naME:"poja"},{$set:{naME:"pooja"}});
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 1, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "ename" : "pooja", "eno" : 102, "naME" : "pooja" }
+> db.emp.delete(naME);
+Wed Aug 28 16:21:18.014 ReferenceError: naME is not defined
+> db.emp.delete{(naME});
+Wed Aug 28 16:21:32.670 SyntaxError: Unexpected token {
+> db.emp.delete({naME});
+Wed Aug 28 16:21:40.950 SyntaxError: Unexpected token }
+> var d={}
+> d.eno=106
+106
+> d.ename="sanjivani";
+sanjivani
+> d.dept=004;
+4
+> d.salary=10298
+10298
+> db.emp.save(d);
+> db.emp.find();
+{ "_id" : ObjectId("5d664be1cceb557160d1d7a4"), "eno" : 101, "ename" : "sai", "dept" : "002" }
+{ "_id" : ObjectId("5d664c41cceb557160d1d7a5"), "eno" : 101, "ename" : { "first" : "sai", "last" : "prasad" }, "skills" : [  "dbms",  "dm",  "wt" ] }
+{ "_id" : ObjectId("5d665477f9611d7b711984a4"), "eno" : 111, "ename" : "trupti" }
+{ "_id" : 1, "eno" : 121, "ename" : "mansi" }
+{ "_id" : ObjectId("5d665badf9611d7b711984a6"), "eno" : 1, "ename" : "mayuri", "salary" : 20345, "dept" : 2 }
+{ "_id" : ObjectId("5d665514f9611d7b711984a5"), "ename" : "pooja", "eno" : 102, "naME" : "pooja" }
+{ "_id" : ObjectId("5d665d1ef9611d7b711984a7"), "eno" : 106, "ename" : "sanjivani", "dept" : 4, "salary" : 10298 }
+> 

@@ -1,0 +1,216 @@
+> 
+> db.emp.insert({empno:1,Name:{first:"A",second:"a",last:"Ab"},Salary:10000,Addr:"Mumbai",Post:"Manager"}
+... )
+WriteResult({ "nInserted" : 1 })
+> db.emp.insert({empno:2,Name:{first:"B",second:"b",last:"Bb"},Salary:15000,Addr:"Mumbai",Post:"G.Manager"})
+WriteResult({ "nInserted" : 1 })
+> db.emp.insert({empno:3,Name:{first:"C",second:"c",last:"Cc"},Salary:8000,Addr:"Pune",Post:"Coder"})
+WriteResult({ "nInserted" : 1 })
+> db.emp.insert({empno:4,Name:{first:"D",second:"d",last:"Dd"},Salary:8000,Addr:"Mumbai",Post:"Coder"})
+WriteResult({ "nInserted" : 1 })
+> db.emp.insert({empno:5,Name:{first:"E",second:"e",last:"Ee"},Salary:6000,Addr:"Pune",Post:"jr.Coder"})
+WriteResult({ "nInserted" : 1 })
+> db.emp.find().pretty()
+{
+	"_id" : ObjectId("5db6c52f1cf265d784e0cc8d"),
+	"empno" : 1,
+	"Name" : {
+		"first" : "A",
+		"second" : "a",
+		"last" : "Ab"
+	},
+	"Salary" : 10000,
+	"Addr" : "Mumbai",
+	"Post" : "Manager"
+}
+{
+	"_id" : ObjectId("5db6c6241cf265d784e0cc8e"),
+	"empno" : 2,
+	"Name" : {
+		"first" : "B",
+		"second" : "b",
+		"last" : "Bb"
+	},
+	"Salary" : 15000,
+	"Addr" : "Mumbai",
+	"Post" : "G.Manager"
+}
+{
+	"_id" : ObjectId("5db6c64a1cf265d784e0cc8f"),
+	"empno" : 3,
+	"Name" : {
+		"first" : "C",
+		"second" : "c",
+		"last" : "Cc"
+	},
+	"Salary" : 8000,
+	"Addr" : "Pune",
+	"Post" : "Coder"
+}
+{
+	"_id" : ObjectId("5db6c66b1cf265d784e0cc90"),
+	"empno" : 4,
+	"Name" : {
+		"first" : "D",
+		"second" : "d",
+		"last" : "Dd"
+	},
+	"Salary" : 8000,
+	"Addr" : "Mumbai",
+	"Post" : "Coder"
+}
+{
+	"_id" : ObjectId("5db6c6911cf265d784e0cc91"),
+	"empno" : 5,
+	"Name" : {
+		"first" : "E",
+		"second" : "e",
+		"last" : "Ee"
+	},
+	"Salary" : 6000,
+	"Addr" : "Pune",
+	"Post" : "jr.Coder"
+}
+> db.emp.ensureindex({empno:1})
+2019-10-28T16:17:45.593+0530 E  QUERY    [js] uncaught exception: TypeError: db.emp.ensureindex is not a function :
+@(shell):1:1
+> db.emp.ensureIndex({empno:1})
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+> db.emp.find().sort()
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "Failed to parse: sort: undefined. 'sort' field must be of BSON type object.",
+	"code" : 9,
+	"codeName" : "FailedToParse"
+}
+> db.emp.find({empno:1}).pretty()
+{
+	"_id" : ObjectId("5db6c52f1cf265d784e0cc8d"),
+	"empno" : 1,
+	"Name" : {
+		"first" : "A",
+		"second" : "a",
+		"last" : "Ab"
+	},
+	"Salary" : 10000,
+	"Addr" : "Mumbai",
+	"Post" : "Manager"
+}
+> db.emp.insert({empno:5,Name:{first:"E",second:"e",last:"Ee"},Salary:6000,Addr:"Pune",Post:"jr.Coder"})
+WriteResult({ "nInserted" : 1 })
+> db.emp.find().pretty()
+{
+	"_id" : ObjectId("5db6c52f1cf265d784e0cc8d"),
+	"empno" : 1,
+	"Name" : {
+		"first" : "A",
+		"second" : "a",
+		"last" : "Ab"
+	},
+	"Salary" : 10000,
+	"Addr" : "Mumbai",
+	"Post" : "Manager"
+}
+{
+	"_id" : ObjectId("5db6c6241cf265d784e0cc8e"),
+	"empno" : 2,
+	"Name" : {
+		"first" : "B",
+		"second" : "b",
+		"last" : "Bb"
+	},
+	"Salary" : 15000,
+	"Addr" : "Mumbai",
+	"Post" : "G.Manager"
+}
+{
+	"_id" : ObjectId("5db6c64a1cf265d784e0cc8f"),
+	"empno" : 3,
+	"Name" : {
+		"first" : "C",
+		"second" : "c",
+		"last" : "Cc"
+	},
+	"Salary" : 8000,
+	"Addr" : "Pune",
+	"Post" : "Coder"
+}
+{
+	"_id" : ObjectId("5db6c66b1cf265d784e0cc90"),
+	"empno" : 4,
+	"Name" : {
+		"first" : "D",
+		"second" : "d",
+		"last" : "Dd"
+	},
+	"Salary" : 8000,
+	"Addr" : "Mumbai",
+	"Post" : "Coder"
+}
+{
+	"_id" : ObjectId("5db6c6911cf265d784e0cc91"),
+	"empno" : 5,
+	"Name" : {
+		"first" : "E",
+		"second" : "e",
+		"last" : "Ee"
+	},
+	"Salary" : 6000,
+	"Addr" : "Pune",
+	"Post" : "jr.Coder"
+}
+{
+	"_id" : ObjectId("5db6c8061cf265d784e0cc92"),
+	"empno" : 5,
+	"Name" : {
+		"first" : "E",
+		"second" : "e",
+		"last" : "Ee"
+	},
+	"Salary" : 6000,
+	"Addr" : "Pune",
+	"Post" : "jr.Coder"
+}
+> db.emp.find({empno:5}).pretty()
+{
+	"_id" : ObjectId("5db6c6911cf265d784e0cc91"),
+	"empno" : 5,
+	"Name" : {
+		"first" : "E",
+		"second" : "e",
+		"last" : "Ee"
+	},
+	"Salary" : 6000,
+	"Addr" : "Pune",
+	"Post" : "jr.Coder"
+}
+{
+	"_id" : ObjectId("5db6c8061cf265d784e0cc92"),
+	"empno" : 5,
+	"Name" : {
+		"first" : "E",
+		"second" : "e",
+		"last" : "Ee"
+	},
+	"Salary" : 6000,
+	"Addr" : "Pune",
+	"Post" : "jr.Coder"
+}
+> db.emp.ensureIndex({empno:1})
+{
+	"numIndexesBefore" : 2,
+	"numIndexesAfter" : 2,
+	"note" : "all indexes already exist",
+	"ok" : 1
+}
+> db.emp.find()[1].pretty()
+2019-10-28T16:22:07.138+0530 E  QUERY    [js] uncaught exception: TypeError: db.emp.find(...)[1].pretty is not a function :
+@(shell):1:1
+> db.emp.find({})
+
+

@@ -1,0 +1,98 @@
+mysql> create database Assi6;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create table old_student(rno int(3) primary key,name varchar(30),marks int(4));
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> create table new_student(rno int(3) primary key,name varchar(30),marks int(4));
+Query OK, 0 rows affected (0.37 sec)
+
+mysql> desc old_students;
+ERROR 1146 (42S02): Table 'Assi5.old_students' doesn't exist
+mysql> desc old_student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rno   | int(3)      | NO   | PRI | NULL    |       |
+| name  | varchar(30) | YES  |     | NULL    |       |
+| marks | int(4)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc new_student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| rno   | int(3)      | NO   | PRI | NULL    |       |
+| name  | varchar(30) | YES  |     | NULL    |       |
+| marks | int(4)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into old_student values(1,"Anand",800);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into old_student values(2,"Aniket",900);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into old_student values(2,"Aniket Mate",900);
+ERROR 1062 (23000): Duplicate entry '2' for key 'PRIMARY'
+mysql> insert into old_student values(3,"Aniket Mate",900);
+Query OK, 1 row affected (0.39 sec)
+
+mysql> insert into old_student values(4,"Ani Mate",950);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into new_student values(1,"Anand S",800);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from new_student;
++-----+---------+-------+
+| rno | name    | marks |
++-----+---------+-------+
+|   1 | Anand S |   800 |
++-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from old_student;
++-----+-------------+-------+
+| rno | name        | marks |
++-----+-------------+-------+
+|   1 | Anand       |   800 |
+|   2 | Aniket      |   900 |
+|   3 | Aniket Mate |   900 |
+|   4 | Ani Mate    |   950 |
++-----+-------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> source a6.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ';
+end repeat;
+close c1;
+end' at line 15
+mysql> source a6.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ';
+end repeat;
+close c1;
+end' at line 15
+mysql> source a6.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call update_table_with_cursor();
+Query OK, 1 row affected (0.50 sec)
+
+mysql> select * from new_student;
++-----+-------------+-------+
+| rno | name        | marks |
++-----+-------------+-------+
+|   1 | Anand       |   800 |
+|   2 | Aniket      |   900 |
+|   3 | Aniket Mate |   900 |
+|   4 | Ani Mate    |   950 |
++-----+-------------+-------+
+4 rows in set (0.01 sec)
+
+mysql> 
+mysql> 
+
+

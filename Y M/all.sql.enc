@@ -1,0 +1,15 @@
+delimiter //
+create procedure fine()
+begin
+declare a, b, temp int;
+select min(rno),max(rno) into a,b from stud;
+ 
+a: loop
+set temp=a;
+call books(temp);
+set a=a+1;
+if(a>b) then leave a;
+end if;
+end loop a;
+end//
+delimiter ;

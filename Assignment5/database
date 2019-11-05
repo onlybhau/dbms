@@ -1,0 +1,341 @@
+
+mysql> create database Assi5;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use Assi5;
+Database changed
+mysql> create table borrower(rno int(3) primary key,name varchar(30),DOI date,name_of_book varchar(30),status char(2));
+Query OK, 0 rows affected (0.36 sec)
+
+mysql> desc borrower;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| rno          | int(3)      | NO   | PRI | NULL    |       |
+| name         | varchar(30) | YES  |     | NULL    |       |
+| DOI          | date        | YES  |     | NULL    |       |
+| name_of_book | varchar(30) | YES  |     | NULL    |       |
+| status       | char(2)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create table fine(rno int(3),DOR date,amt int(5),foreign key(rno) references borrower(rno));
+Query OK, 0 rows affected (0.44 sec)
+
+mysql> desc fine;
++-------+--------+------+-----+---------+-------+
+| Field | Type   | Null | Key | Default | Extra |
++-------+--------+------+-----+---------+-------+
+| rno   | int(3) | YES  | MUL | NULL    |       |
+| DOR   | date   | YES  |     | NULL    |       |
+| amt   | int(5) | YES  |     | NULL    |       |
++-------+--------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into borrower values(1,"Anand",'2019-10-1',"Database","i");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into borrower values(2,"Aniket",'2019-10-9',"Database","i");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into fine values(1,'2019-10-30',0);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into fine values(2,'2019-10-30',0);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from borrower;
++-----+--------+------------+--------------+--------+
+| rno | name   | DOI        | name_of_book | status |
++-----+--------+------------+--------------+--------+
+|   1 | Anand  | 2019-10-01 | Database     | i      |
+|   2 | Aniket | 2019-10-09 | Database     | i      |
++-----+--------+------------+--------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from fine;
++------+------------+------+
+| rno  | DOR        | amt  |
++------+------------+------+
+|    1 | 2019-10-30 |    0 |
+|    2 | 2019-10-30 |    0 |
++------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> select count(*) from fine;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> source a.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int bname varchar)
+begin
+declare cnt int;
+declare ddiff int default(0);
+declare ' at line 1
+mysql> source a.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+begin
+declare cnt int;
+declare ddiff int default(0);
+declare amt1 int default(' at line 1
+mysql> source a.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'borrower set status="r" where rno=rno1; endif;
+if(ddiff>15 & ddiff<30) then set ' at line 11
+mysql> source a.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ';
+if(ddiff>15 & ddiff<30) then set amt1=ddiff*5;update borrower set status="r" w' at line 11
+mysql> source a.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'borrower set status="r" where rno=rno1; 
+end if;
+update fine set amt=amt1 where ' at line 18
+mysql> source a.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'borrower set status="r" where rno=rno1;
+update borrower set status="r" where rno' at line 21
+mysql> source a.sql;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> call amt_upadate(1,"Database");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from fine;
++------+------------+------+
+| rno  | DOR        | amt  |
++------+------------+------+
+|    1 | 2019-10-30 |    0 |
+|    2 | 2019-10-30 |    0 |
++------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from borrower;
++-----+--------+------------+--------------+--------+
+| rno | name   | DOI        | name_of_book | status |
++-----+--------+------------+--------------+--------+
+|   1 | Anand  | 2019-10-01 | Database     | i      |
+|   2 | Aniket | 2019-10-09 | Database     | i      |
++-----+--------+------------+--------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amt_update(1,"Database");
+ERROR 1054 (42S22): Unknown column 'ddfiff' in 'field list'
+mysql> drop procedure amt_update;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amt_update(1,"Database");
++-------+
+| ddiff |
++-------+
+|  NULL |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop procedure amt_update;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amt_update(1,"Database");
+ERROR 1305 (42000): PROCEDURE Assi5.amt_update does not exist
+mysql> source a.sql;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where rno=rno1;
+select DOI from borrower  into doi  where rno=rno1; 
+set ddiff=d' at line 8
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amt_update(1,"Database");
++-------+
+| ddiff |
++-------+
+|  NULL |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> drop procedure amt_update;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amt_update(1,"Database");
++------+
+| doi  |
++------+
+| NULL |
++------+
+1 row in set (0.00 sec)
+
++-------+
+| ddiff |
++-------+
+|  NULL |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> drop procedure amt_update;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amt_update(1);
++------+
+| doi  |
++------+
+| NULL |
++------+
+1 row in set (0.00 sec)
+
++-------+
+| ddiff |
++-------+
+|  NULL |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> drop procedure amt_update;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amt_update(1);
++------+
+| doi  |
++------+
+| NULL |
++------+
+1 row in set (0.00 sec)
+
++-------+
+| ddiff |
++-------+
+|  NULL |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select datediff(DOR,DOI);
+ERROR 1054 (42S22): Unknown column 'DOR' in 'field list'
+mysql> select datediff(f.DOR,b.DOI) from borrower b,fine f;
++-----------------------+
+| datediff(f.DOR,b.DOI) |
++-----------------------+
+|                    29 |
+|                    21 |
+|                    29 |
+|                    21 |
++-----------------------+
+4 rows in set (0.00 sec)
+
+mysql> select datediff(f.DOR,b.DOI) from borrower b,fine f where rno=1;
+ERROR 1052 (23000): Column 'rno' in where clause is ambiguous
+mysql> select datediff(f.DOR,b.DOI) from borrower b,fine f where b.rno=1;
++-----------------------+
+| datediff(f.DOR,b.DOI) |
++-----------------------+
+|                    29 |
+|                    29 |
++-----------------------+
+2 rows in set (0.00 sec)
+
+mysql> select datediff(f.DOR,b.DOI) from borrower b,fine f where b.rno=f.rno AND b.rno=1;
++-----------------------+
+| datediff(f.DOR,b.DOI) |
++-----------------------+
+|                    29 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> drop procedure amt_update;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> source a.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call amt_update(1);
++-------+
+| ddiff |
++-------+
+|    29 |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from fine;
++------+------------+------+
+| rno  | DOR        | amt  |
++------+------------+------+
+|    1 | 2019-10-30 |  145 |
+|    2 | 2019-10-30 |    0 |
++------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from borrower;
++-----+--------+------------+--------------+--------+
+| rno | name   | DOI        | name_of_book | status |
++-----+--------+------------+--------------+--------+
+|   1 | Anand  | 2019-10-01 | Database     | r      |
+|   2 | Aniket | 2019-10-09 | Database     | i      |
++-----+--------+------------+--------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into borrower values(3,"Pratik",'2019-9-1',"i")
+    -> ;
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into borrower values(3,"Pratik",'2019-9-1',"CN","i");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into fine values(3,'2019-10-30',0);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> call amt_update(3);
++-------+
+| ddiff |
++-------+
+|    59 |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 1 row affected (0.22 sec)
+
+mysql> select * from borrower;
++-----+--------+------------+--------------+--------+
+| rno | name   | DOI        | name_of_book | status |
++-----+--------+------------+--------------+--------+
+|   1 | Anand  | 2019-10-01 | Database     | r      |
+|   2 | Aniket | 2019-10-09 | Database     | i      |
+|   3 | Pratik | 2019-09-01 | CN           | r      |
++-----+--------+------------+--------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from fine;
++------+------------+------+
+| rno  | DOR        | amt  |
++------+------------+------+
+|    1 | 2019-10-30 |  145 |
+|    2 | 2019-10-30 |    0 |
+|    3 | 2019-10-30 |  735 |
++------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
